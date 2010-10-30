@@ -1,0 +1,11 @@
+*.log
+.classpath
+.project
+*.class
+.settings
+bin/**
+web/WEB-INF/classes
+web/WEB-INF/lib
+target
+lib
+local.properties

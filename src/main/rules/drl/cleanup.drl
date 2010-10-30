@@ -1,0 +1,34 @@
+package MABISZCalculateRules
+
+import hu.dbx.ws.model.*;
+import hu.dbx.ws.model.State.States;
+import hu.dbx.ws.model.facts.*;
+
+
+rule "State-ek eltavolitas a sessionbol"
+	agenda-group "cleanup"
+	
+	when
+		$s : State( state != States.WF_CLEANUP &&
+					state != States.AGENDA_CLEANUP_START &&
+					state != States.AGENDA_CLEANUP_END)
+		
+	then
+		retract($s);
+end
+
+rule "Message-ek eltavolitas a sessionbol"
+	agenda-group "cleanup"
+	
+	when
+		$q : Query()
+		$m : Message()
+		$md : MessageDef(code == $m.code)
+		
+	then
+		$m.setSeverity($md.getSeverity());
+		$m.setDescription($md.getDescription());
+		$q.addMessage($m);
+
+		retract($m);
+end

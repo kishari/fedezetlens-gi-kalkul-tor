@@ -1,0 +1,135 @@
+package MABISZCalculateRules
+
+import hu.dbx.ws.model.facts.*;
+import hu.dbx.ws.model.*;
+import java.util.Date;
+import org.joda.time.DateTime;
+import org.joda.time.Days;
+import java.util.ArrayList;
+import java.math.BigDecimal;
+
+function boolean isNullInt(Integer i) {
+		return (i == null || i == 0);
+}
+
+function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
+	if ( value == null ) {
+		return false;
+	}
+		if ( value == -1 ) {
+		value = 0;
+	}
+ 		return (lowerBound <= value && upperBound >= value);
+}
+
+function int daysBetween(Date s, Date e) {
+	return Days.daysBetween(new DateTime(s), new DateTime(e)).getDays() + 1;
+}
+
+
+rule "napidij beallitas (szemelygepkocsi)"
+	agenda-group "calculate"
+	salience -10
+	no-loop
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : CarBaseTariffDef( ) 
+		//eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.getMaximumPower() ) )
+		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
+		eval ( $b.isValid( $q.getStartDate() ) )
+						
+	then
+		$q.getResult().setDailyPremium($b.getValue());
+end
+
+rule "napidij beallitas (motorkerekpar)"
+	agenda-group "calculate"
+	salience -10
+	no-loop
+	when
+		$c1: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : MotorBikeBaseTariffDef( ) 
+		//eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.getMaximumPower() ) )
+		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
+		eval ( $b.isValid( $q.getStartDate() ) )
+						
+	then
+		$q.getResult().setDailyPremium($b.getValue());
+end
+
+rule "napidij beallitas (tehergepjarmu)"
+	agenda-group "calculate"
+	salience -10
+	no-loop
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : TruckBaseTariffDef( )
+//		eval ( isBetween( $b.getAllowedWeightMin(), $b.getAllowedWeightMax(), $v.getMaximumAllowedWeight() ) )
+		eval ( isBetween( $b.getCarryingCapacityMin(), $b.getCarryingCapacityMax(), $v.getCarryingCapacity() ) )
+		eval ( $b.isValid( $q.getStartDate() ) )			
+	then
+		$q.getResult().setDailyPremium($b.getValue());
+end
+
+rule "napidij beallitas (autobusz)"
+	agenda-group "calculate"
+	salience -10
+	no-loop	
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : AutoBusBaseTariffDef( )
+		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
+		eval ( $b.isValid( $q.getStartDate() ) )
+						
+	then
+		$q.getResult().setDailyPremium($b.getValue());
+end
+
+rule "napidij beallitas (egyeb jarmu)"
+	agenda-group "calculate"	
+	salience -10
+	no-loop 
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$c3: Constant( name == "TC_AUTOBUSZ")
+		$c4: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Query()
+		$v : Vehicle()
+		$b : BaseTariffDef( vehicleType == $v.typeCode )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )		    		   
+		eval ( $b.isValid( $q.getStartDate() ) )
+
+	then				
+		$q.getResult().setDailyPremium($b.getValue());
+		
+end
+
+rule "mabisz premium szamolasa"
+	agenda-group "calculate"
+	salience -50
+	when
+		$q : Query( )
+		$v : Vehicle()
+	then
+		
+		int numOfDays = daysBetween( $q.getStartDate(), $q.getEndDate() );
+		
+		int total = $q.getResult().getDailyPremium() * numOfDays;
+		
+		$q.getResult().setTotalPremium(total);
+		$q.getResult().setNumOfDays(numOfDays);
+		System.out.println("numOfDay: " + numOfDays);
+		System.out.println("daily: " + $q.getResult().getDailyPremium());
+		System.out.println("total: " + total);
+end
+
+

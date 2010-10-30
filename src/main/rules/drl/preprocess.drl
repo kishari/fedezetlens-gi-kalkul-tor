@@ -1,0 +1,13 @@
+package MABISZCalculateRules
+
+import hu.dbx.ws.model.*;
+import hu.dbx.ws.model.facts.*;
+
+rule "insert vehicle-type-def constants"
+    agenda-group "preprocess"
+	when
+		$vt : VehicleTypeDef()
+		not ( exists( Constant( name == $vt.constantName ) ) )
+	then
+		insert( new Constant($vt.getConstantName(), $vt.getTypeCode() ) );		
+end

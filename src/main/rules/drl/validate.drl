@@ -1,0 +1,318 @@
+package MABISZCalculateRules
+
+import hu.dbx.ws.model.facts.*;
+import hu.dbx.ws.model.*;
+import org.joda.time.DateTime;
+import java.util.Date;
+
+function boolean isNullString(String s) {
+		return ("".equals(s) || s == null);
+}
+
+function int getYear(Date d) {
+	DateTime date = new DateTime(d);
+	return date.getYear();
+}
+
+function boolean isNullInt(Integer i) {
+		return (i == null || i == 0);
+}
+
+function boolean firstDateIsAfter(Date s0, Date e0) {
+	if (s0 == null || e0 == null) {
+		return false;
+	}
+	
+	DateTime s = new DateTime(s0);
+	DateTime e = new DateTime(e0);	
+	
+	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
+	
+	return temp.isAfter(e);    
+}
+
+function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
+	if ( value == null ) {
+		return false;
+	} 
+	else {
+		return (lowerBound <= value && upperBound >= value);
+	}
+}
+
+function String getFormattedDate(Date d) {
+		DateTime d1 = new DateTime(d);
+		String date = String.valueOf(d1.getYear());
+		if (d1.getMonthOfYear() < 10) {
+			date = date + "-0" + String.valueOf(d1.getMonthOfYear() );
+		}
+		else {
+			date = date + "-" + String.valueOf(d1.getMonthOfYear() );
+		}
+		if (d1.getDayOfMonth() < 10) {
+			date = date + "-0" + String.valueOf(d1.getDayOfMonth() );
+		}
+		else {
+			date = date + "-" + String.valueOf(d1.getDayOfMonth() );
+		}
+				
+		return date;
+}
+
+//----------------------------------------
+//----------------------------------------
+rule "validate startDate (isNull)"
+    agenda-group "validate"
+      
+	when
+		$q : Query( startDate == null )
+				
+	then
+		insert( Message.create("1") );		
+end
+
+rule "validate startDate (< 2010.01.01)"
+    agenda-group "validate"
+      
+	when
+		$q : Query( startDate != null && eval (getYear( startDate ) < 2010 ) )
+				
+	then
+		insert( Message.create("3", "2010") );		
+end
+
+rule "validate endDate (isNull)"
+    agenda-group "validate"
+      
+	when
+		$q : Query( endDate == null )
+				
+	then
+		insert( Message.create("2") );		
+end
+
+rule "validate startDate > endDate"
+    agenda-group "validate"
+      
+	when
+		$q : Query( startDate != null && endDate != null )
+		eval (firstDateIsAfter( $q.getStartDate(), $q.getEndDate() ) )
+				
+	then
+		insert( Message.create("17", getFormattedDate( $q.getStartDate() ), getFormattedDate( $q.getEndDate() ) ) );		
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (szemelygepjarmu)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
+		$b : CarBaseTariffDef( ) 
+		//eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.maximumPower() ) )
+		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
+		eval ( !$b.isValid( $q.getStartDate() ) )			
+	then
+		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (motorkerekpar)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
+		$b : MotorBikeBaseTariffDef( ) 
+		//eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $maximumPower() ) )
+		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
+		eval ( !$b.isValid( $q.getStartDate() ) )
+						
+	then
+		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (autobusz)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )		
+		$b : AutoBusBaseTariffDef()
+		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
+		eval ( !$b.isValid( $q.getStartDate() ) )
+						
+	then
+		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (tehergepjarmu)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
+		$b : TruckBaseTariffDef( )
+//		eval ( isBetween( $b.getAllowedWeightMin(), $b.getAllowedWeightMax(), $v.getMaximumAllowedWeight() ) )
+		eval ( isBetween( $b.getCarryingCapacityMin(), $b.getCarryingCapacityMax(), $v.getCarryingCapacity() ) )
+		eval ( !$b.isValid( $q.getStartDate() ) )			
+	then
+		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+end
+
+rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (egyeb jarmu)"
+	agenda-group "validate"
+	
+	salience -5 
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$c3: Constant( name == "TC_AUTOBUSZ")
+		$c4: Constant( name == "TC_SZEMELYGEPJARMU")
+		$q : Query()
+		$v : Vehicle()
+		$b : BaseTariffDef( vehicleType == $v.typeCode )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )		    		   
+		eval ( !$b.isValid( $q.getStartDate() ) )
+
+	then	
+		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
+		
+end
+
+/*****************************************************************************
+				        Jármű szintű validációk 
+*****************************************************************************/
+rule "validate vehicle typecode (isNull)"
+    agenda-group "validate"
+      
+	when
+		$v : Vehicle( eval( isNullString(typeCode) ) )
+		
+	then
+		$v.setTypeCode(null);
+		insert( Message.create("4") );		
+end
+
+rule "validate vehicle typecode (not valid)"
+    agenda-group "validate"
+      
+	when
+		$v : Vehicle( eval( !isNullString(typeCode) ) )
+		not(exists VehicleTypeDef( typeCode == $v.typeCode ) )
+		
+	then
+		insert( Message.create("5", $v.getTypeCode() ) );		
+end
+
+rule "validate power (isNull)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
+					  eval( isNullInt( maximumPower ) ) )				  
+		eval (false) //Ez a 'false' addig kell ide, amíg a power mező nem használt sem autónál, sem motornál	
+	then
+		$v.setMaximumPower(null);
+		insert( Message.create("6") );
+end
+
+rule "validate power (not valid)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
+					  eval( !isNullInt( maximumPower ) ) )
+		eval( $v.getMaximumPower() < 0 || $v.getMaximumPower() > 999999)
+		eval (false) //Ez a 'false' addig kell ide, amíg a power mező nem használt sem autónál, sem motornál	
+	then
+		$v.setMaximumPower(null);
+		insert( Message.create("7") );
+end
+
+rule "validate cubicCapacity (isNull)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
+					  eval( isNullInt(cubicCapacity) ) )				  
+			
+	then
+		$v.setCubicCapacity(null);
+		insert( Message.create("8") );
+end
+
+rule "validate cubicCapacity (not valid)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
+		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) &&  
+					  eval( !isNullInt(cubicCapacity) ) )
+		eval( $v.getCubicCapacity() < 0 || $v.getCubicCapacity() > 999999)
+	then
+		$v.setCubicCapacity(null);
+		insert( Message.create("9") );
+end
+
+rule "validate seatingCapacity (isNull)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$v : Vehicle( typeCode == $c1.value && 
+					  eval( isNullInt(seatingCapacity) ) )
+			
+	then
+		$v.setSeatingCapacity(null);
+		insert( Message.create("10") );
+end
+
+rule "validate seatingCapacity (not valid)"
+    agenda-group "validate"
+      
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$v : Vehicle( typeCode == $c1.value && eval( !isNullInt(seatingCapacity) ) )
+		eval( $v.getSeatingCapacity() > 999999 || $v.getSeatingCapacity() < 10 )
+
+	then
+		$v.setSeatingCapacity(null);
+		insert( Message.create("11") );
+end
+
+rule "validate maximumAllowedWeight (isNull)"
+    agenda-group "validate"
+      
+	when
+		eval( false )
+	then
+
+end
+
+rule "validate maximumAllowedWeight (not valid)"
+    agenda-group "validate"
+      
+	when
+		eval( false )
+	then
+
+end

@@ -1,0 +1,222 @@
+package MABISZCalculateRules
+
+import hu.dbx.ws.model.*;
+import hu.dbx.ws.model.State.States;
+import hu.dbx.ws.model.facts.*;
+
+rule "workflow insert AGENDA_PREPROCESS_START state"
+	agenda-group "workflow"
+	auto-focus true
+	when
+		exists ( State( state == States.WF_START ) )
+		
+	then
+		insert ( new State( States.AGENDA_PREPROCESS_START ) );
+		
+end
+
+//preprocess lefutott. Validálás indul
+rule "preprocess ended. modify workflow state to WF_VALIDATE"
+	agenda-group "workflow"
+	
+	when
+		$s : State( state == States.WF_START )
+		exists ( State( state == States.AGENDA_PREPROCESS_END ) )
+		
+	then
+		modify( $s ) { setState( States.WF_VALIDATE ) };		
+		
+end
+
+rule "workflow insert AGENDA_VALIDATE_START state"
+	agenda-group "workflow"
+	when
+		exists ( State( state == States.WF_VALIDATE ) )
+		
+	then
+		insert ( new State( States.AGENDA_VALIDATE_START ) );
+		
+end
+
+//calculate validálás lefutott. Hibák keresése indul.
+rule "validate ended. modify workflow state to WF_CHECK_VALID"
+	agenda-group "workflow"
+	
+	when
+		$s : State( state == States.WF_VALIDATE )
+		exists ( State( state == States.AGENDA_VALIDATE_END ) )
+		
+	then
+		modify( $s ) { setState( States.WF_CHECK_VALID ) };
+		
+end
+
+/*	Hibák keresése. Van hibaüzenet! */
+rule "hibak keresese. Van hiba. modify workflow state to WF_CLEANUP"
+	agenda-group "workflow"
+	when
+		$s : State(state == States.WF_CHECK_VALID)
+		$q : Query()
+		$m : Message()
+		exists ( MessageDef( code == $m.code, severity == Message.ERROR ) )
+		
+	then			
+		modify( $s ) { setState( States.WF_CLEANUP ) };
+
+end
+
+rule "workflow insert AGENDA_CLEANUP_START state"
+	agenda-group "workflow"
+	when
+		$s : State(state == States.WF_CLEANUP)
+		
+	then			
+		insert( new State( States.AGENDA_CLEANUP_START ) );
+
+end
+
+
+/*	Hibák keresése, nincs hiba! Kalkuláció indulhat.
+	(-10 salience azért kell, hogy mindenképp a hibakereső szabály után fusson le.)
+	Ha a hibakereső elsül, akkor átállítja a WF állapotát cleanup-ra, és akkor ez deaktíválja ezt a szabályt. */
+rule "validalas utan nem volt hiba. modify workflow state to WF_CALCULATE"
+	agenda-group "workflow"
+	salience -10
+	when
+		$s : State( state == States.WF_CHECK_VALID )
+		
+	then
+		modify( $s ) { setState( States.WF_CALCULATE ) };
+end
+
+rule "workflow insert AGENDA_CALCULATE_START state"
+	agenda-group "workflow"
+	when
+		$s : State(state == States.WF_CALCULATE)
+		
+	then			
+		insert( new State( States.AGENDA_CALCULATE_START ) );
+end
+
+/*	Kalkulációs szabályok lefutottak. Indulhat a session takarítása. */
+rule "calculate szabalyok lefutottak"
+	agenda-group "workflow"
+	
+	when
+		$s : State( state == States.WF_CALCULATE )
+		exists( State( state == States.AGENDA_CALCULATE_END ) )
+		
+	then
+		modify( $s ) { setState( States.WF_CLEANUP ) };	
+end
+
+/* A kérést kiszolgáló műveletek sikeresen befejeződtek.	*/
+rule "workflow modify state to WF_END"
+	agenda-group "workflow"
+	when
+		$s : State( state == States.WF_CLEANUP )
+		$c: State( state == States.AGENDA_CLEANUP_END )
+		
+	then
+		modify( $s ) { setState( States.WF_END ) };
+		retract( $c );
+		
+end
+
+rule "workflow vege"
+	agenda-group "workflow"
+	when
+		$s : State( state == States.WF_END )
+		
+	then
+		retract( $s );
+		
+end
+
+rule "preprocess csoport aktivalasa"
+	agenda-group "preprocess"
+	auto-focus true
+	
+	when
+		exists( State( state == States.AGENDA_PREPROCESS_START ) and
+			    State( state == States.WF_START ) )	 
+	then
+	
+end
+
+rule "preprocess csoport utolso szabalya"
+	agenda-group "preprocess"
+	salience -100
+	
+	when
+		exists( State( state == States.AGENDA_PREPROCESS_START ) )
+	then
+		insert( new State( States.AGENDA_PREPROCESS_END ) );
+	
+end
+
+rule "validate csoport aktivalasa"
+	agenda-group "validate"
+	auto-focus true
+	
+	when
+		exists( State( state == States.AGENDA_VALIDATE_START ) and
+			    State( state == States.WF_VALIDATE ) )	 
+	then
+	
+end
+
+rule "validate csoport utolso szabalya"
+	agenda-group "validate"
+	salience -100
+	when
+		$s : State( state == States.AGENDA_VALIDATE_START )
+		
+	then
+		insert( new State( States.AGENDA_VALIDATE_END ) );
+		
+end
+
+rule "calculate csoport aktivalasa"
+	agenda-group "calculate"
+	auto-focus true
+	
+	when
+		exists( State( state == States.AGENDA_CALCULATE_START ) and
+			    State( state == States.WF_CALCULATE ) )
+	then
+
+end
+
+rule "calculate csoport utolso szabaly"
+	agenda-group "calculate"
+	salience -100
+	
+	when
+		$s : State( state == States.AGENDA_CALCULATE_START )
+	then
+		insert( new State(States.AGENDA_CALCULATE_END ) );
+end
+
+rule "cleanup csoport aktivalasa"
+	agenda-group "cleanup"
+	auto-focus true
+	when
+		exists( State( state == States.WF_CLEANUP ) and
+			    State( state == States.AGENDA_CLEANUP_START ) )		
+	then
+	
+end
+
+rule "cleanup csoport utolso szabaly"
+	agenda-group "cleanup"
+	salience -100
+	
+	when
+		$s: State( state == States.AGENDA_CLEANUP_START )
+		
+	then
+		insert( new State( States.AGENDA_CLEANUP_END ) );
+		retract( $s );
+
+end
