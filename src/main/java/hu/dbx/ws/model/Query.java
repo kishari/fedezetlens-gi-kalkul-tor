@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 public class Query {
 
+	private String callerId;
 	private Date startDate;
 	private Date endDate;
 	
@@ -57,5 +58,13 @@ public class Query {
 
 	public Result getResult() {
 		return result;
+	}
+
+	public void setCallerId(String callerId) {
+		this.callerId = callerId;
+	}
+
+	public String getCallerId() {
+		return callerId;
 	}
 }

@@ -7,6 +7,7 @@ public class Vehicle {
 	private Integer seatingCapacity;
 	private Integer carryingCapacity;
 	private Integer maximumPower = null; //amíg nem használatos, legyen null
+	private Integer maximumAllowedWeight = null; //amíg nem használatos, legyen null
 	
 
 	public void setCubicCapacity(Integer cubicCapacity) {
@@ -39,5 +40,11 @@ public class Vehicle {
 	}
 	public Integer getMaximumPower() {
 		return maximumPower;
+	}
+	public void setMaximumAllowedWeight(Integer maximumAllowedWeight) {
+		this.maximumAllowedWeight = maximumAllowedWeight;
+	}
+	public Integer getMaximumAllowedWeight() {
+		return maximumAllowedWeight;
 	}
 }

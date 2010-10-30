@@ -6,11 +6,14 @@ import hu.dbx.ws.iface.model.VehicleV1;
 
 public class QueryV1 {
 
+	private String callerId;
 	private Date startDate;
 	private Date endDate;
 	
 	private VehicleV1 vehicle;
 	private ResultV1 result;
+	
+	private MessageListV1 messages;
 
 	public void setVehicle(VehicleV1 vehicle) {
 		this.vehicle = vehicle;
@@ -42,5 +45,21 @@ public class QueryV1 {
 
 	public ResultV1 getResult() {
 		return result;
+	}
+
+	public void setMessages(MessageListV1 messages) {
+		this.messages = messages;
+	}
+
+	public MessageListV1 getMessages() {
+		return messages;
+	}
+
+	public void setCallerId(String callerId) {
+		this.callerId = callerId;
+	}
+
+	public String getCallerId() {
+		return callerId;
 	}
 }

@@ -110,7 +110,9 @@ rule "napidij beallitas (egyeb jarmu)"
 
 	then				
 		$q.getResult().setDailyPremium($b.getValue());
-		
+        $v.setCubicCapacity(null); //Ne adja őket vissza a válaszban, még ha jött is befelé adat!
+        $v.setSeatingCapacity(null);
+		$v.setCarryingCapacity(null);
 end
 
 rule "mabisz premium szamolasa"
@@ -127,9 +129,9 @@ rule "mabisz premium szamolasa"
 		
 		$q.getResult().setTotalPremium(total);
 		$q.getResult().setNumOfDays(numOfDays);
-		System.out.println("numOfDay: " + numOfDays);
-		System.out.println("daily: " + $q.getResult().getDailyPremium());
-		System.out.println("total: " + total);
+		//System.out.println("numOfDay: " + numOfDays);
+		//System.out.println("daily: " + $q.getResult().getDailyPremium());
+		//System.out.println("total: " + total);
 end
 
 
