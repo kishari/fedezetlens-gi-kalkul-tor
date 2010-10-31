@@ -26,9 +26,12 @@ function boolean firstDateIsAfter(Date s0, Date e0) {
 	DateTime s = new DateTime(s0);
 	DateTime e = new DateTime(e0);	
 	
-	DateTime temp = s.withDate(s.getYear(), s.getMonthOfYear(), s.getDayOfMonth());
+	int millisOfDay = s.getMillisOfDay();
+	s = s.minusMillis(millisOfDay);
+	millisOfDay = e.getMillisOfDay();
+	e = e.minusMillis(millisOfDay);
 	
-	return temp.isAfter(e);    
+	return s.isAfter(e);    
 }
 
 function boolean isBetween(Integer lowerBound, Integer upperBound, Integer value) {
