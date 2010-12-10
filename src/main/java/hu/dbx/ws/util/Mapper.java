@@ -27,6 +27,8 @@ public class Mapper {
 			v.setSeatingCapacity(vehiclev1.getSeatingCapacity());
 			v.setMaximumAllowedWeight(vehiclev1.getMaximumAllowedWeight());
 			v.setMaximumNettoPower(vehiclev1.getMaximumNettoPower());
+			
+			v.setCubicCapacityNotDefined(vehiclev1.isCubicCapacityNotDefined());
 		}
 		return v;
 	}
@@ -56,6 +58,8 @@ public class Mapper {
 		v.setTypeCode(vehicle.getTypeCode());
 		v.setMaximumNettoPower(vehicle.getMaximumNettoPower());
 		v.setMaximumAllowedWeight(vehicle.getMaximumAllowedWeight());
+		
+		v.setCubicCapacityNotDefined(vehicle.isCubicCapacityNotDefined());
 		
 		return v;
 	}

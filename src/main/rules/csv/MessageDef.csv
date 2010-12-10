@@ -1,7 +1,7 @@
 "CODE";"SEVERITY";"DESCRIPTION"
 1;2;"A fedezetlenségi időszak kezdődátumának kitöltése kötelező!"
 2;2;"A fedezetlenségi időszak végdátumának kitöltése kötelező!"
-3;2;"A díjkalkulátor %1-es vagy későbbi kezdődátummal hívható!"
+3;2;"A díjkalkulátor csak %1-es vagy későbbi kezdődátummal hívható!"
 4;2;"A járműtípus mező kitöltése kötelező!"
 5;2;"A megadott járműtípus (%1) nem létezik!"
 6;2;"A teljesítmény mező kitöltése kötelező!"
@@ -16,3 +16,4 @@
 15;2;"A megadott megengedett legnagyobb össztömeg mező értéke nem megfelelő!"
 16;2;"Nincs érvényes tarifa az adott kezdődátummal (%1) az adott járműtípushoz (%2 : %3)!"
 17;2;"A megadott kezdődátum (%1) későbbi időpont, mint a végdátum (%2)!"
+18;2;"A díjkalkulátor csak %1-es vagy korábbi végdátummal hívható!"

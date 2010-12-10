@@ -7,7 +7,8 @@ public class VehicleV1 {
 	private Integer seatingCapacity;
 	private Integer carryingCapacity;
 	private Integer maximumNettoPower;
-	private Integer maximumAllowedWeight;
+	private Integer maximumAllowedWeight;	
+	private boolean cubicCapacityNotDefined;
 	
 	
 	public Integer getCubicCapacity() {
@@ -45,6 +46,12 @@ public class VehicleV1 {
 	}
 	public Integer getMaximumAllowedWeight() {
 		return maximumAllowedWeight;
+	}
+	public void setCubicCapacityNotDefined(boolean cubicCapacityNotDefined) {
+		this.cubicCapacityNotDefined = cubicCapacityNotDefined;
+	}
+	public boolean isCubicCapacityNotDefined() {
+		return cubicCapacityNotDefined;
 	}
 
 }

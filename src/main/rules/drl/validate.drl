@@ -10,8 +10,12 @@ function boolean isNullString(String s) {
 }
 
 function int getYear(Date d) {
-	DateTime date = new DateTime(d);
-	return date.getYear();
+	if (d != null) {
+		DateTime date = new DateTime(d);
+		return date.getYear();
+	}
+	
+	return 0;	
 }
 
 function boolean isNullInt(Integer i) {
@@ -94,6 +98,16 @@ rule "validate endDate (isNull)"
 		insert( Message.create("2") );		
 end
 
+rule "validate endDate (> 2011.12.31)"
+    agenda-group "validate"
+    salience 20  
+	when
+		$q : Query( endDate != null && eval (getYear( endDate ) > 2011 ) )
+				
+	then
+		insert( Message.create("18", "2011") );		
+end
+
 rule "validate startDate > endDate"
     agenda-group "validate"
     salience 20 
@@ -103,100 +117,6 @@ rule "validate startDate > endDate"
 				
 	then
 		insert( Message.create("17", getFormattedDate( $q.getStartDate() ), getFormattedDate( $q.getEndDate() ) ) );		
-end
-
-rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (szemelygepjarmu)"
-	agenda-group "validate"
-	
-	salience -5 
-	when
-		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
-		$b : CarBaseTariffDef( ) 
-		not (exists ( Message (code == "3" || code == "17" ) ) )
-		//eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.maximumPower() ) )
-		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
-		eval ( !$b.isValid( $q.getStartDate() ) )			
-	then
-		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
-end
-
-rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (motorkerekpar)"
-	agenda-group "validate"
-	
-	salience -5 
-	when
-		$c1: Constant( name == "TC_MOTORKEREKPAR")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
-		$b : MotorBikeBaseTariffDef( ) 
-		not (exists ( Message (code == "3" || code == "17" ) ) )
-		//eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $maximumPower() ) )
-		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
-		eval ( !$b.isValid( $q.getStartDate() ) )
-						
-	then
-		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
-end
-
-rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (autobusz)"
-	agenda-group "validate"
-	
-	salience -5 
-	when
-		$c1: Constant( name == "TC_AUTOBUSZ")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$vt: VehicleTypeDef( typeCode == $v.typeCode )		
-		$b : AutoBusBaseTariffDef()
-		not (exists ( Message (code == "3" || code == "17" ) ) )
-		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
-		eval ( !$b.isValid( $q.getStartDate() ) )
-						
-	then
-		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
-end
-
-rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (tehergepjarmu)"
-	agenda-group "validate"
-	
-	salience -5 
-	when
-		$c1: Constant( name == "TC_TEHERGEPJARMU")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
-		$b : TruckBaseTariffDef( )
-		not (exists ( Message (code == "3" || code == "17" ) ) )		
-//		eval ( isBetween( $b.getAllowedWeightMin(), $b.getAllowedWeightMax(), $v.getMaximumAllowedWeight() ) )
-		eval ( isBetween( $b.getCarryingCapacityMin(), $b.getCarryingCapacityMax(), $v.getCarryingCapacity() ) )
-		eval ( !$b.isValid( $q.getStartDate() ) )			
-	then
-		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
-end
-
-rule "Nincs ervenyes alaptarifa a megadott kezdodatumhoz (egyeb jarmu)"
-	agenda-group "validate"
-	
-	salience -5 
-	when
-		$c1: Constant( name == "TC_TEHERGEPJARMU")
-		$c2: Constant( name == "TC_MOTORKEREKPAR")
-		$c3: Constant( name == "TC_AUTOBUSZ")
-		$c4: Constant( name == "TC_SZEMELYGEPJARMU")
-		$q : Query()
-		$v : Vehicle()
-		not (exists ( Message (code == "3" || code == "17" ) ) )		
-		$b : BaseTariffDef( vehicleType == $v.typeCode )
-		$vt: VehicleTypeDef( typeCode == $v.typeCode )		    		   
-		eval ( !$b.isValid( $q.getStartDate() ) )
-
-	then	
-		insert( Message.create("16", getFormattedDate($q.getStartDate() ), $v.getTypeCode(), $vt.getDescription() ) );
-		
 end
 
 /*****************************************************************************
@@ -230,11 +150,12 @@ rule "validate power (isNull)"
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Query()
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
-					  eval( isNullInt( maximumPower ) ) )				  
-		eval (false) //Ez a 'false' addig kell ide, amíg a power mező nem használt sem autónál, sem motornál	
+					  eval( isNullInt( maximumNettoPower ) ) )
+		eval ( getYear( $q.getEndDate() ) == 2011 )
 	then
-		$v.setMaximumPower(null);
+		$v.setMaximumNettoPower(null);
 		insert( Message.create("6") );
 end
 
@@ -244,12 +165,13 @@ rule "validate power (not valid)"
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Query()
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
-					  eval( !isNullInt( maximumPower ) ) )
-		eval( $v.getMaximumPower() < 0 || $v.getMaximumPower() > 999999)
-		eval (false) //Ez a 'false' addig kell ide, amíg a power mező nem használt sem autónál, sem motornál	
+					  eval( !isNullInt( maximumNettoPower ) ) )
+		eval( $v.getMaximumNettoPower() < 0 || $v.getMaximumNettoPower() > 999999)
+		eval ( getYear( $q.getEndDate() ) == 2011 )
 	then
-		$v.setMaximumPower(null);
+		$v.setMaximumNettoPower(null);
 		insert( Message.create("7") );
 end
 
@@ -259,8 +181,10 @@ rule "validate cubicCapacity (isNull)"
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Query()
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
-					  eval( isNullInt(cubicCapacity) ) )				  
+					  eval( isNullInt(cubicCapacity) && !cubicCapacityNotDefined) )				  
+		eval ( getYear( $q.getStartDate() ) == 2010 )
 			
 	then
 		$v.setCubicCapacity(null);
@@ -273,9 +197,12 @@ rule "validate cubicCapacity (not valid)"
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$c2: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Query()
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) &&  
 					  eval( !isNullInt(cubicCapacity) ) )
 		eval( $v.getCubicCapacity() < 0 || $v.getCubicCapacity() > 999999)
+		eval ( getYear( $q.getStartDate() ) == 2010 )
+		
 	then
 		$v.setCubicCapacity(null);
 		insert( Message.create("9") );
@@ -312,8 +239,10 @@ rule "validate carryingCapacity (isNull)"
       
 	when
 		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Query()
 		$v : Vehicle( typeCode == $c1.value && 
 					  eval( isNullInt(carryingCapacity) ) )
+		eval ( getYear( $q.getStartDate() ) == 2010 )
 			
 	then
 		$v.setCarryingCapacity(null);
@@ -325,8 +254,10 @@ rule "validate carryingCapacity (not valid)"
       
 	when
 		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Query()
 		$v : Vehicle( typeCode == $c1.value && eval( !isNullInt(carryingCapacity) ) )
 		eval( $v.getCarryingCapacity() > 999999 || $v.getCarryingCapacity() < 0 )
+		eval ( getYear( $q.getStartDate() ) == 2010 )
 
 	then
 		$v.setCarryingCapacity(null);
@@ -338,9 +269,10 @@ rule "validate maximumAllowedWeight (isNull)"
       
 	when
 		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Query()
 		$v : Vehicle( typeCode == $c1.value && 
 					  eval( isNullInt(maximumAllowedWeight) ) )
-		eval (false) //Ez a 'false' addig kell ide, amíg a maxAllowedWeight mező nem használt a tgk-nál
+		eval ( getYear( $q.getEndDate() ) == 2011 )
 	then
 		$v.setMaximumAllowedWeight(null);
 		insert( Message.create("14") );
@@ -352,10 +284,11 @@ rule "validate maximumAllowedWeight (not valid)"
       
 		when
 		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Query()
 		$v : Vehicle( typeCode == $c1.value && 
 					  eval( !isNullInt(maximumAllowedWeight) ) )
 		eval( $v.getMaximumAllowedWeight() > 999999 || $v.getMaximumAllowedWeight() < 0 )					  
-		eval (false) //Ez a 'false' addig kell ide, amíg a maxAllowedWeight mező nem használt a tgk-nál	
+		eval ( getYear( $q.getEndDate() ) == 2011 )	
 	then
 		$v.setMaximumAllowedWeight(null);
 		insert( Message.create("15") );
