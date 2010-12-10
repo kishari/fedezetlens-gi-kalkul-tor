@@ -88,6 +88,16 @@ rule "validate startDate (< 2010.01.01)"
 		insert( Message.create("3", "2010") );		
 end
 
+rule "validate startDate (> 2011.12.31)"
+    agenda-group "validate"
+    salience 20  
+	when
+		$q : Query( startDate != null && eval (getYear( startDate ) > 2011 ) )
+				
+	then
+		insert( Message.create("20", "2011") );		
+end
+
 rule "validate endDate (isNull)"
     agenda-group "validate"
       
@@ -96,6 +106,16 @@ rule "validate endDate (isNull)"
 				
 	then
 		insert( Message.create("2") );		
+end
+
+rule "validate endDate (< 2010.01.01)"
+    agenda-group "validate"
+    salience 20  
+	when
+		$q : Query( endDate != null && eval (getYear( endDate ) < 2010 ) )
+				
+	then
+		insert( Message.create("21", "2010") );		
 end
 
 rule "validate endDate (> 2011.12.31)"
@@ -110,10 +130,11 @@ end
 
 rule "validate startDate > endDate"
     agenda-group "validate"
-    salience 20 
+    salience 10 
 	when
 		$q : Query( startDate != null && endDate != null )
 		eval (firstDateIsAfter( $q.getStartDate(), $q.getEndDate() ) )
+		not(exists Message( code == "18" || code == "21" || code == "3" || code == "20" ) )
 				
 	then
 		insert( Message.create("17", getFormattedDate( $q.getStartDate() ), getFormattedDate( $q.getEndDate() ) ) );		
@@ -183,7 +204,7 @@ rule "validate cubicCapacity (isNull)"
 		$c2: Constant( name == "TC_MOTORKEREKPAR")
 		$q : Query()
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
-					  eval( isNullInt(cubicCapacity) && !cubicCapacityNotDefined) )				  
+					  eval( isNullInt(cubicCapacity) && !cubicCapacityNotDefined ) )				  
 		eval ( getYear( $q.getStartDate() ) == 2010 )
 			
 	then
@@ -199,7 +220,7 @@ rule "validate cubicCapacity (not valid)"
 		$c2: Constant( name == "TC_MOTORKEREKPAR")
 		$q : Query()
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) &&  
-					  eval( !isNullInt(cubicCapacity) ) )
+					  eval( !isNullInt(cubicCapacity)  && !cubicCapacityNotDefined ) )
 		eval( $v.getCubicCapacity() < 0 || $v.getCubicCapacity() > 999999)
 		eval ( getYear( $q.getStartDate() ) == 2010 )
 		
@@ -292,5 +313,19 @@ rule "validate maximumAllowedWeight (not valid)"
 	then
 		$v.setMaximumAllowedWeight(null);
 		insert( Message.create("15") );
+
+end
+
+rule "validate Quad (startDate year 2010) (not valid)"
+    agenda-group "validate"
+      
+		when
+		$c1: Constant( name == "TC_QUAD" )
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		eval ( getYear( $q.getStartDate() ) == 2010 )	
+		
+	then
+		insert( Message.create("19") );
 
 end

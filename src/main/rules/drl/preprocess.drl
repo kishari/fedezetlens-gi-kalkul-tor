@@ -11,3 +11,12 @@ rule "insert vehicle-type-def constants"
 	then
 		insert( new Constant($vt.getConstantName(), $vt.getTypeCode() ) );		
 end
+
+rule "modify ccm if cubicCapacityNotDefined = true"
+    agenda-group "preprocess"
+	when
+		$v : Vehicle( (typeCode == "10" || typeCode == "11") && 
+					   cubicCapacityNotDefined == true && (cubicCapacity == null || cubicCapacity < 0 || cubicCapacity > 999999) )
+	then
+		modify( $v ) { setCubicCapacity(0) };
+end

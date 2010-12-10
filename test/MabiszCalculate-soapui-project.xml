@@ -71,14 +71,23 @@
   <xs:complexType name="resultV1">
     <xs:sequence>
       <xs:element name="dailyPremium" type="xs:int" minOccurs="0"/>
+      <xs:element name="dailyPremium2010" type="xs:int" minOccurs="0"/>
+      <xs:element name="dailyPremium2011" type="xs:int" minOccurs="0"/>
       <xs:element name="numOfDays" type="xs:int" minOccurs="0"/>
+      <xs:element name="numOfDays2010" type="xs:int" minOccurs="0"/>
+      <xs:element name="numOfDays2011" type="xs:int" minOccurs="0"/>
       <xs:element name="totalPremium" type="xs:int" minOccurs="0"/>
+      <xs:element name="totalPremium2010" type="xs:int" minOccurs="0"/>
+      <xs:element name="totalPremium2011" type="xs:int" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="vehicleV1">
     <xs:sequence>
       <xs:element name="carryingCapacity" type="xs:int" minOccurs="0"/>
       <xs:element name="cubicCapacity" type="xs:int" minOccurs="0"/>
+      <xs:element name="cubicCapacityNotDefined" type="xs:boolean"/>
+      <xs:element name="maximumAllowedWeight" type="xs:int" minOccurs="0"/>
+      <xs:element name="maximumNettoPower" type="xs:int" minOccurs="0"/>
       <xs:element name="seatingCapacity" type="xs:int" minOccurs="0"/>
       <xs:element name="typeCode" type="xs:string" minOccurs="0"/>
     </xs:sequence>
@@ -88,16 +97,18 @@
       <xs:element name="return" type="tns:queryV1" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="calcMabiszPremium" bindingOperationName="calcMabiszPremium" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Szgk 01"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="calcMabiszPremium" bindingOperationName="calcMabiszPremium" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Szgk 01"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-            <endDate>2010-01-15</endDate>
-            <startDate>2010-01-01</startDate>
+	    <startDate>2010-12-01</startDate>
+            <endDate>2011-12-20</endDate>
             <vehicle>
-               <cubicCapacity>890</cubicCapacity>
-               <typeCode>10</typeCode>
+               <cubicCapacity>234</cubicCapacity>
+	       <maximumNettoPower>38</maximumNettoPower>
+               <typeCode>13</typeCode>
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
             </vehicle>
          </query>
       </ser:calcMabiszPremium>
@@ -190,7 +201,363 @@
          </query>
       </wsdl:calcMabiszPremium>
    </env:Body>
-</env:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="Tesztelés"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció" searchProperties="true" id="83c33d05-b2ac-445b-96dd-f2e8d3a441de"><con:settings/><con:testStep type="request" name="Szgk - ccm üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+</env:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 5"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <!--Optional:-->
+         <query>
+            <!--Optional:-->
+            <callerId>?</callerId>
+            <!--Optional:-->
+            <endDate>?</endDate>
+            <!--Optional:-->
+            <messages>
+               <!--Zero or more repetitions:-->
+               <message>
+                  <!--Optional:-->
+                  <code>?</code>
+                  <!--Zero or more repetitions:-->
+                  <context>?</context>
+                  <!--Optional:-->
+                  <description>?</description>
+                  <severity>?</severity>
+               </message>
+            </messages>
+            <!--Optional:-->
+            <result>
+               <!--Optional:-->
+               <dailyPremium>?</dailyPremium>
+               <!--Optional:-->
+               <dailyPremium2010>?</dailyPremium2010>
+               <!--Optional:-->
+               <dailyPremium2011>?</dailyPremium2011>
+               <!--Optional:-->
+               <numOfDays>?</numOfDays>
+               <!--Optional:-->
+               <numOfDays2010>?</numOfDays2010>
+               <!--Optional:-->
+               <numOfDays2011>?</numOfDays2011>
+               <!--Optional:-->
+               <totalPremium>?</totalPremium>
+               <!--Optional:-->
+               <totalPremium2010>?</totalPremium2010>
+               <!--Optional:-->
+               <totalPremium2011>?</totalPremium2011>
+            </result>
+            <!--Optional:-->
+            <startDate>?</startDate>
+            <!--Optional:-->
+            <vehicle>
+               <!--Optional:-->
+               <carryingCapacity>?</carryingCapacity>
+               <!--Optional:-->
+               <cubicCapacity>?</cubicCapacity>
+               <cubicCapacityNotDefined>?</cubicCapacityNotDefined>
+               <!--Optional:-->
+               <maximumAllowedWeight>?</maximumAllowedWeight>
+               <!--Optional:-->
+               <maximumNettoPower>?</maximumNettoPower>
+               <!--Optional:-->
+               <seatingCapacity>?</seatingCapacity>
+               <!--Optional:-->
+               <typeCode>?</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="Tesztelés"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció új" searchProperties="true" id="9fe7bd23-577a-48c5-9dbb-32c6e0d881e8"><con:settings/><con:testStep type="request" name="Szgk - ccm null - 2010 (notDefined false)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm null - 2010 (notDefined false)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2010-12-31</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+         <!--      <cubicCapacity></cubicCapacity> -->
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+               <typeCode>10</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm üres - 2010 (notDefined false)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm üres - 2010 (notDefined false)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2010-12-31</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+               <cubicCapacity></cubicCapacity>
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+               <typeCode>10</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm null - 2010 (notDefined true)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm null - 2010 (notDefined true)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2010-12-31</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+         <!--      <cubicCapacity></cubicCapacity> -->
+	       <cubicCapacityNotDefined>true</cubicCapacityNotDefined>
+               <typeCode>10</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" disabled="true"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm üres - 2010 (notDefined true)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm üres - 2010 (notDefined true)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2010-12-31</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+               <cubicCapacity></cubicCapacity>
+	       <cubicCapacityNotDefined>true</cubicCapacityNotDefined>
+               <typeCode>10</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" disabled="true"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - kw üres - 2011"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - kw üres - 2011" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2011-12-31</endDate>
+            <startDate>2011-01-01</startDate>
+            <vehicle>
+               <cubicCapacity></cubicCapacity>
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+	       <maximumNettoPower></maximumNettoPower>
+               <typeCode>10</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - kw null - 2011"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - kw null - 2011" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2011-12-31</endDate>
+            <startDate>2011-01-01</startDate>
+            <vehicle>
+               <cubicCapacity></cubicCapacity>
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+<!--	       <maximumNettoPower></maximumNettoPower> -->
+               <typeCode>11</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm not valid (-100) - 2010"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm not valid (-100) - 2010" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2010-12-31</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+	      <cubicCapacity>-100</cubicCapacity>
+               <typeCode>11</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm not valid (-100) (notDefined true) - 2010"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm not valid (-100) (notDefined true) - 2010" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2010-12-31</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+	      <cubicCapacity>-100</cubicCapacity>
+	      <cubicCapacityNotDefined>true</cubicCapacityNotDefined>
+               <typeCode>10</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>230</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm not valid (1000000) (notDefined true) - 2010"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm not valid (1000000) (notDefined true) - 2010" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2010-12-31</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+	      <cubicCapacity>1000000</cubicCapacity>
+	      <cubicCapacityNotDefined>true</cubicCapacityNotDefined>
+               <typeCode>10</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>230</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm not valid (1000000) - 2010"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm not valid (1000000) - 2010" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2010-12-31</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+	      <cubicCapacity>1000000</cubicCapacity>
+	      <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+               <typeCode>11</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm és kw null - 2010-11 (notDefined false)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm és kw null - 2010-11 (notDefined false)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2011-01-01</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+         <!--      <cubicCapacity></cubicCapacity> -->
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+<!--	       <maximumNettoPower></maximumNettoPower> -->
+               <typeCode>11</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match 2"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm üres és kw null - 2010-11 (notDefined false)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm üres és kw null - 2010-11 (notDefined false)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2011-01-01</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+               <cubicCapacity></cubicCapacity>
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+<!--	       <maximumNettoPower></maximumNettoPower> -->
+               <typeCode>11</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match 2"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm üres és kw üres - 2010-11 (notDefined false)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm üres és kw üres - 2010-11 (notDefined false)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2011-01-01</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+               <cubicCapacity></cubicCapacity>
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+	       <maximumNettoPower></maximumNettoPower> 
+               <typeCode>11</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match 2"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm üres és kw üres - 2010-11 (notDefined true)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm üres és kw üres - 2010-11 (notDefined true)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2011-01-01</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+               <cubicCapacity></cubicCapacity>
+	       <cubicCapacityNotDefined>true</cubicCapacityNotDefined>
+	       <maximumNettoPower></maximumNettoPower> 
+               <typeCode>11</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" disabled="true"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match 2"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Quad - 2010-es kezdődátummal"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Quad - 2010-es kezdődátummal" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2011-01-01</endDate>
+            <startDate>2010-01-01</startDate>
+            <vehicle>
+               <cubicCapacity></cubicCapacity>
+	       <cubicCapacityNotDefined>true</cubicCapacityNotDefined>
+	       <maximumNettoPower></maximumNettoPower> 
+               <typeCode>25</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match" disabled="true"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match 2"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>19</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció" searchProperties="true" id="83c33d05-b2ac-445b-96dd-f2e8d3a441de"><con:settings/><con:testStep type="request" name="Motor - ccm üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor - ccm üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -199,74 +566,6 @@
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity></cubicCapacity>
-               <typeCode>10</typeCode>
-            </vehicle>
-         </query>
-      </ser:calcMabiszPremium>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
-declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
-
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm null"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm null" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <ser:calcMabiszPremium>
-         <query>
-            <endDate>2010-01-15</endDate>
-            <startDate>2010-01-01</startDate>
-            <vehicle>
-         <!--      <cubicCapacity></cubicCapacity> -->
-               <typeCode>10</typeCode>
-            </vehicle>
-         </query>
-      </ser:calcMabiszPremium>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
-declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
-
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm not valid (-100)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm not valid (-100)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <ser:calcMabiszPremium>
-         <query>
-            <endDate>2010-01-15</endDate>
-            <startDate>2010-01-01</startDate>
-            <vehicle>
-	      <cubicCapacity>-100</cubicCapacity>
-               <typeCode>10</typeCode>
-            </vehicle>
-         </query>
-      </ser:calcMabiszPremium>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
-declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
-
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk - ccm not valid (1000000)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm not valid (1000000)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <ser:calcMabiszPremium>
-         <query>
-            <endDate>2010-01-15</endDate>
-            <startDate>2010-01-01</startDate>
-            <vehicle>
-	      <cubicCapacity>-100</cubicCapacity>
-               <typeCode>10</typeCode>
-            </vehicle>
-         </query>
-      </ser:calcMabiszPremium>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
-declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
-
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor - ccm üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor - ccm üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <ser:calcMabiszPremium>
-         <query>
-            <endDate>2010-01-15</endDate>
-            <startDate>2010-01-01</startDate>
-            <vehicle>
-               <cubicCapacity></cubicCapacity>
                <typeCode>11</typeCode>
             </vehicle>
          </query>
@@ -275,7 +574,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor - ccm null"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor - ccm null" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor - ccm null"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor - ccm null" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -292,7 +591,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor - ccm not valid (-100)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor - ccm not valid (-100)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor - ccm not valid (-100)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor - ccm not valid (-100)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -309,7 +608,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor - ccm not valid (1000000)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor - ccm not valid (1000000)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor - ccm not valid (1000000)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor - ccm not valid (1000000)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -326,7 +625,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Autóbusz - helyek száma üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Autóbusz - helyek száma üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>9</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Autóbusz - helyek száma üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Autóbusz - helyek száma üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -344,7 +643,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>10</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Autóbusz - helyek száma null"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Autóbusz - helyek száma null" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>10</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Autóbusz - helyek száma null"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Autóbusz - helyek száma null" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -361,7 +660,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>10</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Autóbusz - helyek száma not valid (-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Autóbusz - helyek száma not valid (-1)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>10</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Autóbusz - helyek száma not valid (-1)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Autóbusz - helyek száma not valid (-1)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -378,7 +677,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>11</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Autóbusz - helyek száma not valid (1millió)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Autóbusz - helyek száma not valid (1millió)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>11</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Autóbusz - helyek száma not valid (1millió)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Autóbusz - helyek száma not valid (1millió)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -395,7 +694,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>11</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk - teherbírás üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk - teherbírás üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>11</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk - teherbírás üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk - teherbírás üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -412,7 +711,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>12</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk - teherbírás null"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk - teherbírás null" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>12</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk - teherbírás null"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk - teherbírás null" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -429,7 +728,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>12</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk - teherbírás not valid (-10)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk - teherbírás not valid (-10)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>12</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk - teherbírás not valid (-10)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk - teherbírás not valid (-10)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -446,7 +745,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>13</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk - teherbírás not valid (1millió)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk - teherbírás not valid (1millió)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>13</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk - teherbírás not valid (1millió)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk - teherbírás not valid (1millió)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -463,7 +762,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>13</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="StartDate = endDate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="StartDate = endDate" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>13</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="StartDate = endDate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="StartDate = endDate" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -480,7 +779,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>230</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="StartDate > endDate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="StartDate > endDate" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>230</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="StartDate > endDate"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="StartDate > endDate" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -497,13 +796,13 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>17</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="startDate not valid"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="startDate not valid" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/messages/message/code</path><content>17</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="startDate not valid"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="startDate not valid" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
             <endDate>2011-02-01</endDate>
-            <startDate>2012-12-31</startDate>
+            <startDate>2011-01-01</startDate>
             <vehicle>
                <cubicCapacity>10</cubicCapacity>
                <typeCode>10</typeCode>
@@ -519,10 +818,11 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-            <endDate>2010-01-15</endDate>
+            <endDate>2011-01-01</endDate>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>890</cubicCapacity>
+	       <maximumNettoPower>55</maximumNettoPower>
                <typeCode>10</typeCode>
             </vehicle>
          </query>
@@ -531,15 +831,16 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>280</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk 02"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk 02" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>280</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Szgk 02"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk 02" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-            <endDate>2010-01-15</endDate>
+            <endDate>2011-01-15</endDate>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>1500</cubicCapacity>
+	       <maximumNettoPower>55</maximumNettoPower>
                <typeCode>10</typeCode>
             </vehicle>
          </query>
@@ -548,16 +849,17 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>330</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor01"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor01" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>330</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Motor01"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Motor01" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-            <endDate>2010-01-15</endDate>
+            <endDate>2011-01-15</endDate>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <cubicCapacity>351</cubicCapacity>
                <typeCode>11</typeCode>
+	       <maximumNettoPower>55</maximumNettoPower>
             </vehicle>
          </query>
       </ser:calcMabiszPremium>
@@ -565,7 +867,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>100</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Busz01"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Busz01" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>100</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Busz01"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Busz01" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -582,12 +884,12 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>1050</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Busz02"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Busz02" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>1050</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Busz02"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Busz02" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-            <endDate>2010-01-15</endDate>
+            <endDate>2011-01-15</endDate>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <seatingCapacity>10</seatingCapacity>
@@ -599,7 +901,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>330</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk01"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk01" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>330</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk01"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk01" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -616,7 +918,7 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>300</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk02"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk02" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>300</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk02"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk02" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
@@ -633,14 +935,15 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>640</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk03"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk03" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>640</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Tgk03"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Tgk03" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-            <endDate>2010-01-15</endDate>
+            <endDate>2011-01-15</endDate>
             <startDate>2010-01-01</startDate>
             <vehicle>
+	       <maximumAllowedWeight>5675</maximumAllowedWeight>
                <carryingCapacity>6001</carryingCapacity>
                <typeCode>14</typeCode>
             </vehicle>
@@ -650,12 +953,12 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>960</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SM"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="SM" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>960</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="SM"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="SM" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-            <endDate>2010-01-15</endDate>
+            <endDate>2011-01-15</endDate>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <carryingCapacity>6001</carryingCapacity>
@@ -667,12 +970,15 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>100</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Troli"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Troli" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>100</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="XPath Match 2"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2011</path><content>0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Troli"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Troli" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-            <endDate>2010-01-15</endDate>
+            <endDate>2011-01-15</endDate>
             <startDate>2010-01-01</startDate>
             <vehicle>
                <carryingCapacity>6001</carryingCapacity>
@@ -684,4 +990,21 @@ declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 </soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
 declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
 
-/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium</path><content>1020</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2010</path><content>1020</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:testStep type="request" name="Quad"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Quad" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+            <endDate>2011-01-15</endDate>
+            <startDate>2011-01-01</startDate>
+            <vehicle>
+               <carryingCapacity>6001</carryingCapacity>
+               <typeCode>25</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:assertion type="SOAP Response"/><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns2='http://service.ws.dbx.hu/';
+declare namespace S='http://schemas.xmlsoap.org/soap/envelope/';
+
+/S:Envelope/S:Body/ns2:calcMabiszPremiumResponse/return/result/dailyPremium2011</path><content>100</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:request></con:config></con:testStep><con:properties/></con:testCase><con:properties/></con:testSuite><con:properties/><con:wssContainer/></con:soapui-project>

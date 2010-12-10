@@ -77,8 +77,9 @@ rule "2010-es napidij beallitas (motorkerekpar)"
 		$v : Vehicle( typeCode == $c1.value )
 		$b : MotorBikeBaseTariffDef( ) 
 		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
-		eval ( $b.isValid( $q.getStartDate() ) )
 		eval ( getYear( $q.getStartDate() ) == 2010 )	
+		eval ( $b.isValid( $q.getStartDate() ) )
+		
 						
 	then
 		$q.getResult().setDailyPremium2010($b.getValue());
@@ -174,10 +175,6 @@ rule "2010-es napidij beallitas (egyeb jarmu)"
 	salience -10
 	no-loop 
 	when
-		$c1: Constant( name == "TC_TEHERGEPJARMU")
-		$c2: Constant( name == "TC_MOTORKEREKPAR")
-		$c3: Constant( name == "TC_AUTOBUSZ")
-		$c4: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Query()
 		$v : Vehicle()
 		$b : BaseTariffDef( vehicleType == $v.typeCode )
@@ -197,10 +194,6 @@ rule "2011-es napidij beallitas (egyeb jarmu)"
 	salience -10
 	no-loop 
 	when
-		$c1: Constant( name == "TC_TEHERGEPJARMU")
-		$c2: Constant( name == "TC_MOTORKEREKPAR")
-		$c3: Constant( name == "TC_AUTOBUSZ")
-		$c4: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Query()
 		$v : Vehicle()
 		$b : BaseTariffDef( vehicleType == $v.typeCode )

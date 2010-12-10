@@ -17,3 +17,6 @@
 16;2;"Nincs érvényes tarifa az adott kezdődátummal (%1) az adott járműtípushoz (%2 : %3)!"
 17;2;"A megadott kezdődátum (%1) későbbi időpont, mint a végdátum (%2)!"
 18;2;"A díjkalkulátor csak %1-es vagy korábbi végdátummal hívható!"
+19;2;"Quad esetén a kezdődátum csak 2011-es dátum lehet!"
+20;2;"A díjkalkulátor csak %1-es vagy korábbi kezdődátummal hívható!"
+21;2;"A díjkalkulátor csak %1-es vagy később végdátummal hívható!"
