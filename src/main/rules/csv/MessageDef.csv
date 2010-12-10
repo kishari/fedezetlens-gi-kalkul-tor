@@ -1,6 +1,6 @@
 "CODE";"SEVERITY";"DESCRIPTION"
-1;2;"A kezdődátum kitöltése kötelező!"
-2;2;"A végdátum kitöltése kötelező!"
+1;2;"A fedezetlenségi időszak kezdődátumának kitöltése kötelező!"
+2;2;"A fedezetlenségi időszak végdátumának kitöltése kötelező!"
 3;2;"A díjkalkulátor %1-es vagy későbbi kezdődátummal hívható!"
 4;2;"A járműtípus mező kitöltése kötelező!"
 5;2;"A megadott járműtípus (%1) nem létezik!"

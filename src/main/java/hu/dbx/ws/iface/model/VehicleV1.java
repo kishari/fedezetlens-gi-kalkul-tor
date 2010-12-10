@@ -6,6 +6,8 @@ public class VehicleV1 {
 	private Integer cubicCapacity;
 	private Integer seatingCapacity;
 	private Integer carryingCapacity;
+	private Integer maximumNettoPower;
+	private Integer maximumAllowedWeight;
 	
 	
 	public Integer getCubicCapacity() {
@@ -31,6 +33,18 @@ public class VehicleV1 {
 	}
 	public String getTypeCode() {
 		return typeCode;
+	}
+	public void setMaximumNettoPower(Integer maximumNettoPower) {
+		this.maximumNettoPower = maximumNettoPower;
+	}
+	public Integer getMaximumNettoPower() {
+		return maximumNettoPower;
+	}
+	public void setMaximumAllowedWeight(Integer maximumAllowedWeight) {
+		this.maximumAllowedWeight = maximumAllowedWeight;
+	}
+	public Integer getMaximumAllowedWeight() {
+		return maximumAllowedWeight;
 	}
 
 }

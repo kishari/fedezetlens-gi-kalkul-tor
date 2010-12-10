@@ -6,8 +6,8 @@ public class Vehicle {
 	private Integer cubicCapacity;
 	private Integer seatingCapacity;
 	private Integer carryingCapacity;
-	private Integer maximumPower = null; //amíg nem használatos, legyen null
-	private Integer maximumAllowedWeight = null; //amíg nem használatos, legyen null
+	private Integer maximumNettoPower;
+	private Integer maximumAllowedWeight;
 	
 
 	public void setCubicCapacity(Integer cubicCapacity) {
@@ -35,16 +35,16 @@ public class Vehicle {
 		return typeCode;
 	}
 
-	public void setMaximumPower(Integer maximumPower) {
-		this.maximumPower = maximumPower;
-	}
-	public Integer getMaximumPower() {
-		return maximumPower;
-	}
 	public void setMaximumAllowedWeight(Integer maximumAllowedWeight) {
 		this.maximumAllowedWeight = maximumAllowedWeight;
 	}
 	public Integer getMaximumAllowedWeight() {
 		return maximumAllowedWeight;
+	}
+	public void setMaximumNettoPower(Integer maximumNettoPower) {
+		this.maximumNettoPower = maximumNettoPower;
+	}
+	public Integer getMaximumNettoPower() {
+		return maximumNettoPower;
 	}
 }

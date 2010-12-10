@@ -174,7 +174,23 @@
          </query>
       </ser:calcMabiszPremium>
    </soapenv:Body>
-</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="Tesztelés"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció" searchProperties="true" id="83c33d05-b2ac-445b-96dd-f2e8d3a441de"><con:settings/><con:testStep type="request" name="Szgk - ccm üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Bug"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:request><![CDATA[<env:Envelope xmlns:env="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdl="http://service.ws.dbx.hu/">
+   <env:Body>
+      <wsdl:calcMabiszPremium>
+         <query>
+            <startDate>2010-10-01T00:00:00+02:00</startDate>
+            <endDate>2010-10-01T00:00:00+02:00</endDate>
+            <callerId>noe3</callerId>
+            <vehicle>
+               <typeCode>10</typeCode>
+               <seatingCapacity>1</seatingCapacity>
+               <cubicCapacity>1598</cubicCapacity>
+               <carryingCapacity/>
+            </vehicle>
+         </query>
+      </wsdl:calcMabiszPremium>
+   </env:Body>
+</env:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="Tesztelés"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció" searchProperties="true" id="83c33d05-b2ac-445b-96dd-f2e8d3a441de"><con:settings/><con:testStep type="request" name="Szgk - ccm üres"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm üres" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>

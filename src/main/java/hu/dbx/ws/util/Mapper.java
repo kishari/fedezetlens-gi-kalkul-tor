@@ -25,6 +25,8 @@ public class Mapper {
 			v.setCarryingCapacity(vehiclev1.getCarryingCapacity());
 			v.setCubicCapacity(vehiclev1.getCubicCapacity());
 			v.setSeatingCapacity(vehiclev1.getSeatingCapacity());
+			v.setMaximumAllowedWeight(vehiclev1.getMaximumAllowedWeight());
+			v.setMaximumNettoPower(vehiclev1.getMaximumNettoPower());
 		}
 		return v;
 	}
@@ -52,6 +54,8 @@ public class Mapper {
 		v.setCubicCapacity(vehicle.getCubicCapacity());
 		v.setCarryingCapacity(vehicle.getCarryingCapacity());
 		v.setTypeCode(vehicle.getTypeCode());
+		v.setMaximumNettoPower(vehicle.getMaximumNettoPower());
+		v.setMaximumAllowedWeight(vehicle.getMaximumAllowedWeight());
 		
 		return v;
 	}
@@ -59,8 +63,17 @@ public class Mapper {
 	private static ResultV1 mapOut(Result result) {
 		ResultV1 r = new ResultV1();
 		
-		r.setDailyPremium(result.getDailyPremium());
+		r.setNumOfDays2010(result.getNumOfDays2010());
+		r.setNumOfDays2011(result.getNumOfDays2011());
+		
+		r.setDailyPremium2010(result.getDailyPremium2010());
+		r.setDailyPremium2011(result.getDailyPremium2011());
+		
+		r.setTotalPremium2010(result.getTotalPremium2010());
+		r.setTotalPremium2011(result.getTotalPremium2011());
+		
 		r.setNumOfDays(result.getNumOfDays());
+		r.setDailyPremium(result.getDailyPremium());
 		r.setTotalPremium(result.getTotalPremium());
 		
 		return r;
