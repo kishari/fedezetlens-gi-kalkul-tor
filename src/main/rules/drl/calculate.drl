@@ -221,20 +221,22 @@ rule "mabisz premium szamolasa"
 		int numOfDays2010 = 0;
 		int numOfDays2011 = 0;
 		
-		if ( getYear( $q.getEndDate() ) == 2011 ) {
+		if ( getYear( $q.getStartDate() ) == 2010 && getYear( $q.getEndDate() ) == 2011 ) {
 			numOfDays2010 = daysBetween( $q.getStartDate(), new DateTime(2010, 12, 31, 23, 59, 59, 0).toDate() );
+			numOfDays2011 = daysBetween( new DateTime(2011, 1, 1, 0, 0, 0, 0).toDate(), $q.getEndDate() );
 		}
-		else {
+		else if ( getYear( $q.getStartDate() ) == 2010 && getYear( $q.getEndDate() ) == 2010 ) {
 			numOfDays2010 = daysBetween( $q.getStartDate(), $q.getEndDate() );
 		}
-		 
-		numOfDays2011 = daysBetween( new DateTime(2011, 1, 1, 0, 0, 0, 0).toDate(), $q.getEndDate() );
+		else if ( getYear( $q.getStartDate() ) == 2011 && getYear( $q.getEndDate() ) == 2011 ) {
+			numOfDays2011 = daysBetween( $q.getStartDate(), $q.getEndDate() );
+		}
+		 		
+		//System.out.println("napidij 2010: " + $q.getResult().getDailyPremium2010());
+		//System.out.println("napidij 2011: " + $q.getResult().getDailyPremium2011());
 		
-		System.out.println("napidij 2010: " + $q.getResult().getDailyPremium2010());
-		System.out.println("napidij 2011: " + $q.getResult().getDailyPremium2011());
-		
-		System.out.println("napok szama 2010: " + numOfDays2010);
-		System.out.println("napok szama 2011: " + numOfDays2011);
+		//System.out.println("napok szama 2010: " + numOfDays2010);
+		//System.out.println("napok szama 2011: " + numOfDays2011);
 		
 		
 		int total2010 = 0;

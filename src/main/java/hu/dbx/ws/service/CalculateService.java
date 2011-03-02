@@ -35,21 +35,23 @@ public class CalculateService implements ApplicationContextAware {
 
 	@WebMethod
 	public QueryV1 calcMabiszPremium(@WebParam(name="query")QueryV1 query) {
-		logger.debug("MABISZ calculate started.");
+		logger.info("MABISZ calculate started.");
 		try {
-			Query q = getDroolsHelper().compute(Mapper.mapIn(query));			
-			
-			logger.debug("MABISZ calculate finished.");
+			Query q = getDroolsHelper().compute(Mapper.mapIn(query));								
 			
 			QueryV1 result = Mapper.mapOut(q);
+			logger.info("MABISZ calculate finished.");
 			return result;
 			
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
+			logger.error("NoSuchElementException in " + getClass().getSimpleName() + "!", e);
 		} catch (IllegalStateException e) {
 			e.printStackTrace();
+			logger.error("IllegalStateException in " + getClass().getSimpleName() + "!", e);
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("Exception in " + getClass().getSimpleName() + "!", e);			
 		}
 		return null;
 	}
