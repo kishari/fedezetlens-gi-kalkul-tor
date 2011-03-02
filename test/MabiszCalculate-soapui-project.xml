@@ -97,17 +97,17 @@
       <xs:element name="return" type="tns:queryV1" minOccurs="0"/>
     </xs:sequence>
   </xs:complexType>
-</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="calcMabiszPremium" bindingOperationName="calcMabiszPremium" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Szgk 01"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+</xs:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:endpoint>http://mkbb.dbx.hu/mabisz/CalculateService</con:endpoint><con:endpoint>https://services.mkbb.hu:8080/mabisz/CalculateService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="calcMabiszPremium" bindingOperationName="calcMabiszPremium" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Szgk 01"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
       <ser:calcMabiszPremium>
          <query>
-	    <startDate>2010-12-01</startDate>
-            <endDate>2011-12-20</endDate>
+	    <startDate>2011-03-01T00:00:00+01:00</startDate>
+            <endDate>2011-03-03T23:59:59+01:00</endDate>
             <vehicle>
-               <cubicCapacity>234</cubicCapacity>
-	       <maximumNettoPower>38</maximumNettoPower>
-               <typeCode>13</typeCode>
+               <cubicCapacity>1798</cubicCapacity>
+	       <maximumNettoPower>92</maximumNettoPower>
+               <typeCode>10</typeCode>
 	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
             </vehicle>
          </query>
