@@ -1,6 +1,6 @@
-<project name="screek" basedir="." default="deploy">
+<project name="mabisz" basedir="." default="deploy">
 	<dirname property="mabisz.basedir" file="${ant.file.mabisz}"/>
-	<property file="${mabisz.basedir}/local.properties"/>
+	<!--<property file="${mabisz.basedir}/local.properties"/>-->
 	<property file="${mabisz.basedir}/build.properties"/>
 	<property name="web" value="${mabisz.basedir}/web"/>
 	<property name="lib" value="${mabisz.basedir}/lib"/>
@@ -16,6 +16,7 @@
 	<property name="services-autodeploy-dir" value="${glassfish.home}/glassfish/domains/${services.domain}/autodeploy" />
 	<!--<property name="mabisz.domain.lib.classes" value="${glassfish.home}/glassfish/domains/${mabisz.domain}/lib/classes" />-->
 	<property name="services.domain.lib.classes" value="${glassfish.home}/glassfish/domains/${services.domain}/lib/classes" />
+    <property name="bin" value="${mabisz.basedir}/bin" />
 	
 	<property name="mabisz.warname" value="mabisz.war"/>
 	<property name="mabisz.earname" value="mabisz.ear"/>
@@ -71,5 +72,11 @@
 	<target name="deploy" depends="war">
 			<copy file="${log4j.propfile}" todir="${services.domain.lib.classes}" />
 			<copy file="${mabisz.warfile}" todir="${services-autodeploy-dir}" />
+	</target>
+
+    	<target name="copy_rules">
+			<copy todir="${bin}">
+		    <fileset dir="${src.rules}"/>
+		  </copy>
 	</target>
 </project>

@@ -66,15 +66,15 @@ public class Mapper {
 	
 	private static ResultV1 mapOut(Result result) {
 		ResultV1 r = new ResultV1();
-		
-		r.setNumOfDays2010(result.getNumOfDays2010());
-		r.setNumOfDays2011(result.getNumOfDays2011());
-		
-		r.setDailyPremium2010(result.getDailyPremium2010());
-		r.setDailyPremium2011(result.getDailyPremium2011());
-		
-		r.setTotalPremium2010(result.getTotalPremium2010());
-		r.setTotalPremium2011(result.getTotalPremium2011());
+
+        for (Premium p : result.getPremiumList()) {
+            PremiumV1 premiumV1 = new PremiumV1();
+            premiumV1.setYear(p.getYear());
+            premiumV1.setDailyPremium(p.getDailyPremium());
+            premiumV1.setNumOfDays(p.getNumOfDays());
+            premiumV1.setTotalPremium(p.getTotalPremium());
+            r.getPremiums().add(premiumV1);
+        }
 		
 		r.setNumOfDays(result.getNumOfDays());
 		r.setDailyPremium(result.getDailyPremium());

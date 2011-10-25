@@ -43,28 +43,30 @@ rule "2010-es napidij beallitas (szemelygepkocsi)"
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
 		$q : Query()
 		$v : Vehicle( typeCode == $c1.value )
-		$b : CarBaseTariffDef( ) 
+		$b : CarBaseTariffDef( )
+		$p : Premium( year == 2010 )
 		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
 		eval ( $b.isValid( $q.getStartDate() ) )
-		eval ( getYear( $q.getStartDate() ) == 2010 )				
+		eval ( getYear( $q.getStartDate() ) == $p.getYear() )
 	then
-		$q.getResult().setDailyPremium2010($b.getValue());
+		$p.setDailyPremium($b.getValue());
 end
 
-rule "2011-es napidij beallitas (szemelygepkocsi)"
+rule " 2010 utáni napidij beallitas (szemelygepkocsi)"
 	agenda-group "calculate"
 	salience -10
-	no-loop
+	lock-on-active
 	when
 		$c1: Constant( name == "TC_SZEMELYGEPJARMU")
-		$q : Query()
+		$q : Query( )
 		$v : Vehicle( typeCode == $c1.value )
-		$b : CarBaseTariffDef( ) 
+		$b : CarBaseTariffDef( )
+		$p : Premium( year != 2010 )
 		eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.getMaximumNettoPower() ) )
-		eval ( $b.isValid( new DateTime(getYear( $q.getEndDate() ), 1, 1, 0, 0, 0, 0).toDate() ) )
-		eval ( getYear( $q.getEndDate() ) == 2011 )				
+		eval ( $b.isValid( new DateTime($p.getYear(), 1, 1, 0, 0, 0, 0).toDate() ) )
+		eval ( getYear( $q.getEndDate() ) >= $p.getYear() )
 	then
-		$q.getResult().setDailyPremium2011($b.getValue());
+		$p.setDailyPremium($b.getValue());
 end
 
 rule "2010-es napidij beallitas (motorkerekpar)"

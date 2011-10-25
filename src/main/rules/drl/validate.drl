@@ -88,14 +88,14 @@ rule "validate startDate (< 2010.01.01)"
 		insert( Message.create("3", "2010") );		
 end
 
-rule "validate startDate (> 2011.12.31)"
+rule "validate startDate (> 2012.12.31)"
     agenda-group "validate"
     salience 20  
 	when
-		$q : Query( startDate != null && eval (getYear( startDate ) > 2011 ) )
+		$q : Query( startDate != null && eval (getYear( startDate ) > 2012 ) )
 				
 	then
-		insert( Message.create("20", "2011") );		
+		insert( Message.create("20", "2012") );
 end
 
 rule "validate endDate (isNull)"
@@ -118,14 +118,14 @@ rule "validate endDate (< 2010.01.01)"
 		insert( Message.create("21", "2010") );		
 end
 
-rule "validate endDate (> 2011.12.31)"
+rule "validate endDate (> 2012.12.31)"
     agenda-group "validate"
     salience 20  
 	when
-		$q : Query( endDate != null && eval (getYear( endDate ) > 2011 ) )
+		$q : Query( endDate != null && eval (getYear( endDate ) > 2012 ) )
 				
 	then
-		insert( Message.create("18", "2011") );		
+		insert( Message.create("18", "2012") );
 end
 
 rule "validate startDate > endDate"
@@ -174,7 +174,8 @@ rule "validate power (isNull)"
 		$q : Query()
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
 					  eval( isNullInt( maximumNettoPower ) ) )
-		eval ( getYear( $q.getEndDate() ) == 2011 )
+		eval ( getYear( $q.getEndDate() ) >= 2011 )
+		not(exists Message( code == "17" || code == "18" || code == "21" || code == "3" || code == "20" ) )
 	then
 		$v.setMaximumNettoPower(null);
 		insert( Message.create("6") );
@@ -190,7 +191,8 @@ rule "validate power (not valid)"
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
 					  eval( !isNullInt( maximumNettoPower ) ) )
 		eval( $v.getMaximumNettoPower() < 0 || $v.getMaximumNettoPower() > 999999)
-		eval ( getYear( $q.getEndDate() ) == 2011 )
+		eval ( getYear( $q.getEndDate() ) >= 2011 )
+		not(exists Message( code == "17" || code == "18" || code == "21" || code == "3" || code == "20" ) )
 	then
 		$v.setMaximumNettoPower(null);
 		insert( Message.create("7") );
@@ -293,7 +295,8 @@ rule "validate maximumAllowedWeight (isNull)"
 		$q : Query()
 		$v : Vehicle( typeCode == $c1.value && 
 					  eval( isNullInt(maximumAllowedWeight) ) )
-		eval ( getYear( $q.getEndDate() ) == 2011 )
+		eval ( getYear( $q.getEndDate() ) >= 2011 )
+		not(exists Message( code == "17" || code == "18" || code == "21" || code == "3" || code == "20" ) )
 	then
 		$v.setMaximumAllowedWeight(null);
 		insert( Message.create("14") );
@@ -309,7 +312,8 @@ rule "validate maximumAllowedWeight (not valid)"
 		$v : Vehicle( typeCode == $c1.value && 
 					  eval( !isNullInt(maximumAllowedWeight) ) )
 		eval( $v.getMaximumAllowedWeight() > 999999 || $v.getMaximumAllowedWeight() < 0 )					  
-		eval ( getYear( $q.getEndDate() ) == 2011 )	
+		eval ( getYear( $q.getEndDate() ) >= 2011 )
+		not(exists Message( code == "17" || code == "18" || code == "21" || code == "3" || code == "20" ) )
 	then
 		$v.setMaximumAllowedWeight(null);
 		insert( Message.create("15") );

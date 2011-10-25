@@ -5,11 +5,13 @@ import hu.dbx.ws.model.State.States;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.NoSuchElementException;
 
 import org.apache.commons.pool.ObjectPool;
 import org.drools.runtime.rule.FactHandle;
 import org.drools.runtime.StatefulKnowledgeSession;
+import org.joda.time.DateTime;
 
 public class DroolsHelper {
 	private ObjectPool pool;
@@ -31,6 +33,15 @@ public class DroolsHelper {
 				
 		Vehicle v = query.getVehicle();
 		facts.add(v);
+
+        int startYear = getYear(query.getStartDate());
+        int endYear = getYear(query.getEndDate());
+
+        if (startYear != 0 && endYear != 0) {
+            for (int i = startYear; i <= endYear; i++) {
+                facts.add(new Premium(i, null, null, null));
+            }
+        }
 		
 		Collection<FactHandle> factHandles = insertFacts(facts, ksession);
 		ksession.fireAllRules();
@@ -66,5 +77,14 @@ public class DroolsHelper {
 	public void setPool(ObjectPool pool) {
 		this.pool = pool;
 	}
+
+    private int getYear(Date d) {
+	    if (d != null) {
+		    DateTime date = new DateTime(d);
+		    return date.getYear();
+	    }
+
+	    return 0;
+    }
 
 }
