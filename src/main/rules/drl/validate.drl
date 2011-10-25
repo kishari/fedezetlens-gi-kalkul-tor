@@ -192,7 +192,7 @@ rule "validate power (not valid)"
 		eval( $v.getMaximumNettoPower() < 0 || $v.getMaximumNettoPower() > 999999)
 		eval ( getYear( $q.getEndDate() ) >= 2011 )
 	then
-		$v.setMaximumNettoPower(null);
+		//$v.setMaximumNettoPower(null);
 		insert( Message.create("7") );
 end
 

@@ -30,6 +30,10 @@ rule "Message-ek eltavolitas a sessionbol"
 		$m.setDescription($md.getDescription());
 		$q.addMessage($m);
 
+		if ($m.getSeverity() == Message.ERROR) {
+            $q.setResult(null);
+		}
+
 		retract($m);
 end
 
@@ -41,7 +45,9 @@ rule "Premium-ok eltavolitas a sessionbol"
 		$p : Premium()
 
 	then
-	    $p.setTotalPremium($p.getNumOfDays() * $p.getDailyPremium());
-        $q.getResult().addPremium($p);
+	    if ($p.getNumOfDays() != null && $p.getDailyPremium() != null) {
+	        $p.setTotalPremium($p.getNumOfDays() * $p.getDailyPremium());
+            $q.getResult().addPremium($p);
+        }
 		retract($p);
 end
