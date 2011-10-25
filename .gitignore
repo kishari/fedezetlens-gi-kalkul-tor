@@ -9,3 +9,5 @@ web/WEB-INF/lib
 target
 lib
 local.properties
+.idea
+*.iml
