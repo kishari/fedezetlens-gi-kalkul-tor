@@ -32,3 +32,16 @@ rule "Message-ek eltavolitas a sessionbol"
 
 		retract($m);
 end
+
+rule "Premium-ok eltavolitas a sessionbol"
+	agenda-group "cleanup"
+
+	when
+		$q : Query()
+		$p : Premium()
+
+	then
+	    $p.setTotalPremium($p.getNumOfDays() * $p.getDailyPremium());
+        $q.getResult().addPremium($p);
+		retract($p);
+end

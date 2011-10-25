@@ -1,15 +1,15 @@
 package hu.dbx.ws.model;
 
 
+import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Result {
 	
 	
-	private List<Premium> premiumList = new ArrayList<Premium>();
+	private PremiumList premiums = new PremiumList();
 	private Integer numOfDays;
-	private Integer dailyPremium;
 	private Integer totalPremium;
 
 
@@ -19,12 +19,6 @@ public class Result {
 	public void setNumOfDays(Integer numOfDays) {
 		this.numOfDays = numOfDays;
 	}
-	public void setDailyPremium(Integer dailyPremium) {
-		this.dailyPremium = dailyPremium;
-	}
-	public Integer getDailyPremium() {
-		return dailyPremium;
-	}
 	public void setTotalPremium(Integer totalPremium) {
 		this.totalPremium = totalPremium;
 	}
@@ -32,11 +26,16 @@ public class Result {
 		return totalPremium;
 	}
 
-    public List<Premium> getPremiumList() {
-        return premiumList;
+    @XmlElement(name = "premiums")
+    public PremiumList getPremiums() {
+        return premiums;
     }
 
-    public void setPremiumList(List<Premium> premiumList) {
-        this.premiumList = premiumList;
+    public void setPremiums(PremiumList premiums) {
+        this.premiums = premiums;
+    }
+
+    public void addPremium(Premium premium) {
+        this.getPremiums().getPremiumList().add(premium);
     }
 }

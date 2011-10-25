@@ -6,10 +6,9 @@ import java.util.List;
 
 public class ResultV1 {
 
-    private List<PremiumV1> premiums = new ArrayList<PremiumV1>();
-	private Integer numOfDays; //= numOfDays2010 + numOfDays2011
-	private Integer dailyPremium; // = dailyPremium2010 + dailyPremium2011
-	private Integer totalPremium; // = totalPremium2010 + totalPremium2011
+    private PremiumListV1 premiums = new PremiumListV1();
+	private Integer numOfDays;
+	private Integer totalPremium;
 	
 
 	public Integer getNumOfDays() {
@@ -18,12 +17,6 @@ public class ResultV1 {
 	public void setNumOfDays(Integer numOfDays) {
 		this.numOfDays = numOfDays;
 	}
-	public void setDailyPremium(Integer dailyPremium) {
-		this.dailyPremium = dailyPremium;
-	}
-	public Integer getDailyPremium() {
-		return dailyPremium;
-	}
 	public void setTotalPremium(Integer totalPremium) {
 		this.totalPremium = totalPremium;
 	}
@@ -31,11 +24,12 @@ public class ResultV1 {
 		return totalPremium;
 	}
 
-    public List<PremiumV1> getPremiums() {
+    public PremiumListV1 getPremiums() {
         return premiums;
     }
 
-    public void setPremiums(List<PremiumV1> premiums) {
+    public void setPremiums(PremiumListV1 premiums) {
         this.premiums = premiums;
     }
+
 }

@@ -67,18 +67,25 @@ public class Mapper {
 	private static ResultV1 mapOut(Result result) {
 		ResultV1 r = new ResultV1();
 
-        for (Premium p : result.getPremiumList()) {
+        if (result == null) return null;
+
+        Integer numOfDays = new Integer(0);
+        Integer totalPremium = new Integer(0);
+
+        for (Premium p : result.getPremiums().getPremiumList()) {
             PremiumV1 premiumV1 = new PremiumV1();
             premiumV1.setYear(p.getYear());
             premiumV1.setDailyPremium(p.getDailyPremium());
             premiumV1.setNumOfDays(p.getNumOfDays());
             premiumV1.setTotalPremium(p.getTotalPremium());
-            r.getPremiums().add(premiumV1);
+            r.getPremiums().getPremiumList().add(premiumV1);
+
+            numOfDays += p.getNumOfDays();
+            totalPremium += p.getTotalPremium();
         }
 		
-		r.setNumOfDays(result.getNumOfDays());
-		r.setDailyPremium(result.getDailyPremium());
-		r.setTotalPremium(result.getTotalPremium());
+		r.setNumOfDays(numOfDays);
+		r.setTotalPremium(totalPremium);
 		
 		return r;
 	}

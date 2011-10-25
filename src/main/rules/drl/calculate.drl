@@ -69,197 +69,45 @@ rule " 2010 utáni napidij beallitas (szemelygepkocsi)"
 		$p.setDailyPremium($b.getValue());
 end
 
-rule "2010-es napidij beallitas (motorkerekpar)"
-	agenda-group "calculate"
-	salience -10
-	no-loop
-	when
-		$c1: Constant( name == "TC_MOTORKEREKPAR")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$b : MotorBikeBaseTariffDef( ) 
-		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
-		eval ( getYear( $q.getStartDate() ) == 2010 )	
-		eval ( $b.isValid( $q.getStartDate() ) )
-		
-						
+rule "premium napok számolása (intervallum eleje)"
+    agenda-group "calculate"
+	salience -30
+	lock-on-active
+    when
+	    $q : Query()
+	    $p : Premium()
+	    eval ( getYear( $q.getStartDate() ) == $p.getYear() )
+
 	then
-		$q.getResult().setDailyPremium2010($b.getValue());
+	    $p.setNumOfDays(daysBetween($q.getStartDate(), new DateTime($p.getYear(), 12, 31, 23, 59, 59, 999).toDate() ));
+
 end
 
-rule "2011-es napidij beallitas (motorkerekpar)"
-	agenda-group "calculate"
-	salience -10
-	no-loop
+rule "premium napok számolása (intervallum vege)"
+    agenda-group "calculate"
+	salience -30
+    lock-on-active
 	when
-		$c1: Constant( name == "TC_MOTORKEREKPAR")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$b : MotorBikeBaseTariffDef( ) 
-		eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.getMaximumNettoPower() ) )
-		eval ( getYear( $q.getEndDate() ) == 2011 )	
-		eval ( $b.isValid( new DateTime(getYear( $q.getEndDate() ), 1, 1, 0, 0, 0, 0).toDate() ) )
-						
+	    $q : Query()
+	    $p : Premium()
+	    eval ( getYear( $q.getEndDate() ) == $p.getYear() )
+
 	then
-		$q.getResult().setDailyPremium2011($b.getValue());
+	    $p.setNumOfDays(daysBetween(new DateTime($p.getYear(), 1, 1, 0, 0, 0, 0).toDate(), $q.getEndDate() ));
+
 end
 
-rule "2010-es napidij beallitas (tehergepjarmu)"
-	agenda-group "calculate"
-	salience -10
-	no-loop
+rule "premium napok számolása (intervallum kozepe)"
+    agenda-group "calculate"
+	salience -30
+    lock-on-active
 	when
-		$c1: Constant( name == "TC_TEHERGEPJARMU")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$b : TruckBaseTariffDef( )
-		eval ( isBetween( $b.getCarryingCapacityMin(), $b.getCarryingCapacityMax(), $v.getCarryingCapacity() ) )
-		eval ( getYear( $q.getStartDate() ) == 2010 )	
-		eval ( $b.isValid( $q.getStartDate() ) )		
-			
+	    $q : Query()
+	    $p : Premium()
+	    eval ( getYear( $q.getStartDate() ) != $p.getYear() )
+	    eval ( getYear( $q.getEndDate() ) != $p.getYear() )
+
 	then
-		$q.getResult().setDailyPremium2010($b.getValue());
+	    $p.setNumOfDays(daysBetween(new DateTime($p.getYear(), 1, 1, 0, 0, 0, 0).toDate(), new DateTime($p.getYear(), 12, 31, 23, 59, 59, 999).toDate() ));
+
 end
-
-rule "2011-es napidij beallitas (tehergepjarmu)"
-	agenda-group "calculate"
-	salience -10
-	no-loop
-	when
-		$c1: Constant( name == "TC_TEHERGEPJARMU")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$b : TruckBaseTariffDef( )
-		eval ( isBetween( $b.getAllowedWeightMin(), $b.getAllowedWeightMax(), $v.getMaximumAllowedWeight() ) )			
-		eval ( getYear( $q.getEndDate() ) == 2011 )	
-		eval ( $b.isValid( new DateTime(getYear( $q.getEndDate() ), 1, 1, 0, 0, 0, 0).toDate() ) )
-		
-	then
-		$q.getResult().setDailyPremium2011($b.getValue());
-end
-
-rule "2010-es napidij beallitas (autobusz)"
-	agenda-group "calculate"
-	salience -10
-	no-loop	
-	when
-		$c1: Constant( name == "TC_AUTOBUSZ")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$b : AutoBusBaseTariffDef( )
-		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
-		eval ( getYear( $q.getStartDate() ) == 2010 )	
-		eval ( $b.isValid( $q.getStartDate() ) )
-						
-	then
-		$q.getResult().setDailyPremium2010($b.getValue());
-end
-
-rule "2011-es napidij beallitas (autobusz)"
-	agenda-group "calculate"
-	salience -10
-	no-loop	
-	when
-		$c1: Constant( name == "TC_AUTOBUSZ")
-		$q : Query()
-		$v : Vehicle( typeCode == $c1.value )
-		$b : AutoBusBaseTariffDef( )
-		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
-		eval ( getYear( $q.getEndDate() ) == 2011 )		
-		eval ( $b.isValid( new DateTime(getYear( $q.getEndDate() ), 1, 1, 0, 0, 0, 0).toDate() ) )
-						
-	then
-		$q.getResult().setDailyPremium2011($b.getValue());
-end
-
-rule "2010-es napidij beallitas (egyeb jarmu)"
-	agenda-group "calculate"	
-	salience -10
-	no-loop 
-	when
-		$q : Query()
-		$v : Vehicle()
-		$b : BaseTariffDef( vehicleType == $v.typeCode )
-		$vt: VehicleTypeDef( typeCode == $v.typeCode )	
-		eval ( getYear( $q.getStartDate() ) == 2010 )			    		   
-		eval ( $b.isValid( $q.getStartDate() ) )
-
-	then				
-		$q.getResult().setDailyPremium2010($b.getValue());
-        $v.setCubicCapacity(null); //Ne adja őket vissza a válaszban, még ha jött is befelé adat!
-        $v.setSeatingCapacity(null);
-		$v.setCarryingCapacity(null);
-end
-
-rule "2011-es napidij beallitas (egyeb jarmu)"
-	agenda-group "calculate"	
-	salience -10
-	no-loop 
-	when
-		$q : Query()
-		$v : Vehicle()
-		$b : BaseTariffDef( vehicleType == $v.typeCode )
-		$vt: VehicleTypeDef( typeCode == $v.typeCode )		    		   
-		eval ( getYear( $q.getEndDate() ) == 2011 )		
-		eval ( $b.isValid( new DateTime(getYear( $q.getEndDate() ), 1, 1, 0, 0, 0, 0).toDate() ) )
-
-	then				
-		$q.getResult().setDailyPremium2011($b.getValue());
-        $v.setCubicCapacity(null); //Ne adja őket vissza a válaszban, még ha jött is befelé adat!
-        $v.setSeatingCapacity(null);
-		$v.setCarryingCapacity(null);
-end
-
-rule "mabisz premium szamolasa"
-	agenda-group "calculate"
-	salience -50
-	when
-		$q : Query( )
-		$v : Vehicle()
-	then
-		
-		int numOfDays = daysBetween( $q.getStartDate(), $q.getEndDate() );
-		
-		int numOfDays2010 = 0;
-		int numOfDays2011 = 0;
-		
-		if ( getYear( $q.getStartDate() ) == 2010 && getYear( $q.getEndDate() ) == 2011 ) {
-			numOfDays2010 = daysBetween( $q.getStartDate(), new DateTime(2010, 12, 31, 23, 59, 59, 0).toDate() );
-			numOfDays2011 = daysBetween( new DateTime(2011, 1, 1, 0, 0, 0, 0).toDate(), $q.getEndDate() );
-		}
-		else if ( getYear( $q.getStartDate() ) == 2010 && getYear( $q.getEndDate() ) == 2010 ) {
-			numOfDays2010 = daysBetween( $q.getStartDate(), $q.getEndDate() );
-		}
-		else if ( getYear( $q.getStartDate() ) == 2011 && getYear( $q.getEndDate() ) == 2011 ) {
-			numOfDays2011 = daysBetween( $q.getStartDate(), $q.getEndDate() );
-		}
-		 		
-		//System.out.println("napidij 2010: " + $q.getResult().getDailyPremium2010());
-		//System.out.println("napidij 2011: " + $q.getResult().getDailyPremium2011());
-		
-		//System.out.println("napok szama 2010: " + numOfDays2010);
-		//System.out.println("napok szama 2011: " + numOfDays2011);
-		
-		
-		int total2010 = 0;
-		if ($q.getResult().getDailyPremium2010() != null && numOfDays2010 >= 0) {
-			total2010 = $q.getResult().getDailyPremium2010() * numOfDays2010;
-			$q.getResult().setTotalPremium2010(total2010);
-			$q.getResult().setNumOfDays2010(numOfDays2010);
-		}
-		
-		int total2011 = 0;
-		if ($q.getResult().getDailyPremium2011() != null  && numOfDays2011 >= 0) {
-			total2011 = $q.getResult().getDailyPremium2011() * numOfDays2011;
-			$q.getResult().setTotalPremium2011(total2011);
-			$q.getResult().setNumOfDays2011(numOfDays2011);
-		}
-		
-		int total = total2010 + total2011;
-		
-		$q.getResult().setTotalPremium(total);
-		$q.getResult().setNumOfDays(numOfDays);
-		
-end
-
-
