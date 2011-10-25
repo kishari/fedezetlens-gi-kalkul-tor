@@ -266,6 +266,90 @@
          </query>
       </ser:calcMabiszPremium>
    </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="mtpl_2012 teszt"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <query>
+	    <startDate>2010-01-20T00:00:00+01:00</startDate>
+            <endDate>2012-02-20T23:59:59+01:00</endDate>
+            <vehicle>
+               <cubicCapacity>1100</cubicCapacity>
+	       <maximumNettoPower>12</maximumNettoPower>
+               <typeCode>24</typeCode>
+	       <cubicCapacityNotDefined>false</cubicCapacityNotDefined>
+	       <carryingCapacity>11</carryingCapacity>
+               <maximumAllowedWeight>500</maximumAllowedWeight>                             
+		<seatingCapacity>10</seatingCapacity>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 7"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ser:calcMabiszPremium>
+         <!--Optional:-->
+         <query>
+            <!--Optional:-->
+            <callerId>?</callerId>
+            <!--Optional:-->
+            <endDate>?</endDate>
+            <!--Optional:-->
+            <messages>
+               <!--Zero or more repetitions:-->
+               <message>
+                  <!--Optional:-->
+                  <code>?</code>
+                  <!--Zero or more repetitions:-->
+                  <context>?</context>
+                  <!--Optional:-->
+                  <description>?</description>
+                  <severity>?</severity>
+               </message>
+            </messages>
+            <!--Optional:-->
+            <result>
+               <!--Optional:-->
+               <dailyPremium>?</dailyPremium>
+               <!--Optional:-->
+               <dailyPremium2010>?</dailyPremium2010>
+               <!--Optional:-->
+               <dailyPremium2011>?</dailyPremium2011>
+               <!--Optional:-->
+               <numOfDays>?</numOfDays>
+               <!--Optional:-->
+               <numOfDays2010>?</numOfDays2010>
+               <!--Optional:-->
+               <numOfDays2011>?</numOfDays2011>
+               <!--Optional:-->
+               <totalPremium>?</totalPremium>
+               <!--Optional:-->
+               <totalPremium2010>?</totalPremium2010>
+               <!--Optional:-->
+               <totalPremium2011>?</totalPremium2011>
+            </result>
+            <!--Optional:-->
+            <startDate>?</startDate>
+            <!--Optional:-->
+            <vehicle>
+               <!--Optional:-->
+               <carryingCapacity>?</carryingCapacity>
+               <!--Optional:-->
+               <cubicCapacity>?</cubicCapacity>
+               <cubicCapacityNotDefined>?</cubicCapacityNotDefined>
+               <!--Optional:-->
+               <maximumAllowedWeight>?</maximumAllowedWeight>
+               <!--Optional:-->
+               <maximumNettoPower>?</maximumNettoPower>
+               <!--Optional:-->
+               <seatingCapacity>?</seatingCapacity>
+               <!--Optional:-->
+               <typeCode>?</typeCode>
+            </vehicle>
+         </query>
+      </ser:calcMabiszPremium>
+   </soapenv:Body>
 </soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://service.ws.dbx.hu/CalculateService/calcMabiszPremiumRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:testSuite name="Tesztelés"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Validáció új" searchProperties="true" id="9fe7bd23-577a-48c5-9dbb-32c6e0d881e8"><con:settings/><con:testStep type="request" name="Szgk - ccm null - 2010 (notDefined false)"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>CalculateServicePortBinding</con:interface><con:operation>calcMabiszPremium</con:operation><con:request name="Szgk - ccm null - 2010 (notDefined false)" outgoingWss="" incomingWss="" timeout="" wssPasswordType=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8888/CalculateService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ser="http://service.ws.dbx.hu/">
    <soapenv:Header/>
    <soapenv:Body>
