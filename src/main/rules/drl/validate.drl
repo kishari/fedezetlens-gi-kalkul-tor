@@ -175,7 +175,6 @@ rule "validate power (isNull)"
 		$v : Vehicle( (typeCode == $c1.value || typeCode == $c2.value) && 
 					  eval( isNullInt( maximumNettoPower ) ) )
 		eval ( getYear( $q.getEndDate() ) >= 2011 )
-		not(exists Message( code == "17" || code == "18" || code == "21" || code == "3" || code == "20" ) )
 	then
 		$v.setMaximumNettoPower(null);
 		insert( Message.create("6") );
@@ -192,7 +191,6 @@ rule "validate power (not valid)"
 					  eval( !isNullInt( maximumNettoPower ) ) )
 		eval( $v.getMaximumNettoPower() < 0 || $v.getMaximumNettoPower() > 999999)
 		eval ( getYear( $q.getEndDate() ) >= 2011 )
-		not(exists Message( code == "17" || code == "18" || code == "21" || code == "3" || code == "20" ) )
 	then
 		$v.setMaximumNettoPower(null);
 		insert( Message.create("7") );
@@ -296,7 +294,7 @@ rule "validate maximumAllowedWeight (isNull)"
 		$v : Vehicle( typeCode == $c1.value && 
 					  eval( isNullInt(maximumAllowedWeight) ) )
 		eval ( getYear( $q.getEndDate() ) >= 2011 )
-		not(exists Message( code == "17" || code == "18" || code == "21" || code == "3" || code == "20" ) )
+
 	then
 		$v.setMaximumAllowedWeight(null);
 		insert( Message.create("14") );
@@ -313,7 +311,7 @@ rule "validate maximumAllowedWeight (not valid)"
 					  eval( !isNullInt(maximumAllowedWeight) ) )
 		eval( $v.getMaximumAllowedWeight() > 999999 || $v.getMaximumAllowedWeight() < 0 )					  
 		eval ( getYear( $q.getEndDate() ) >= 2011 )
-		not(exists Message( code == "17" || code == "18" || code == "21" || code == "3" || code == "20" ) )
+
 	then
 		$v.setMaximumAllowedWeight(null);
 		insert( Message.create("15") );
