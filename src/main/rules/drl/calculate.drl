@@ -69,6 +69,158 @@ rule " 2010 utáni napidij beallitas (szemelygepkocsi)"
 		$p.setDailyPremium($b.getValue());
 end
 
+rule "2010-es napidij beallitas (motorkerekpar)"
+	agenda-group "calculate"
+	salience -10
+	lock-on-active
+	when
+		$c1: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : MotorBikeBaseTariffDef( )
+		$p : Premium( year == 2010 )
+		eval ( isBetween($b.getCubicCapacityMin(), $b.getCubicCapacityMax(), $v.getCubicCapacity() ) )
+		eval ( getYear( $q.getStartDate() ) == $p.getYear() )
+		eval ( $b.isValid( $q.getStartDate() ) )
+
+
+	then
+		$p.setDailyPremium($b.getValue());
+end
+
+rule "2010 utáni napidij beallitas (motorkerekpar)"
+	agenda-group "calculate"
+	salience -10
+	lock-on-active
+	when
+		$c1: Constant( name == "TC_MOTORKEREKPAR")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : MotorBikeBaseTariffDef( )
+		$p : Premium( year != 2010 )
+		eval ( isBetween($b.getPowerMin(), $b.getPowerMax(), $v.getMaximumNettoPower() ) )
+		eval ( $b.isValid( new DateTime($p.getYear(), 1, 1, 0, 0, 0, 0).toDate() ) )
+		eval ( getYear( $q.getEndDate() ) >= $p.getYear() )
+
+	then
+		$p.setDailyPremium($b.getValue());
+end
+
+rule "2010-es napidij beallitas (tehergepjarmu)"
+	agenda-group "calculate"
+	salience -10
+	lock-on-active
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : TruckBaseTariffDef( )
+		$p : Premium( year == 2010 )
+		eval ( isBetween( $b.getCarryingCapacityMin(), $b.getCarryingCapacityMax(), $v.getCarryingCapacity() ) )
+		eval ( getYear( $q.getStartDate() ) == $p.getYear() )
+		eval ( $b.isValid( $q.getStartDate() ) )
+
+	then
+		$p.setDailyPremium($b.getValue());
+end
+
+rule "2010 utáni napidij beallitas (tehergepjarmu)"
+	agenda-group "calculate"
+	salience -10
+	lock-on-active
+	when
+		$c1: Constant( name == "TC_TEHERGEPJARMU")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : TruckBaseTariffDef( )
+		$p : Premium( year != 2010 )
+		eval ( isBetween( $b.getAllowedWeightMin(), $b.getAllowedWeightMax(), $v.getMaximumAllowedWeight() ) )
+		eval ( getYear( $q.getEndDate() ) >= $p.getYear() )
+		eval ( $b.isValid( new DateTime($p.getYear(), 1, 1, 0, 0, 0, 0).toDate() ) )
+
+	then
+		$p.setDailyPremium($b.getValue());
+end
+
+rule "2010-es napidij beallitas (autobusz)"
+	agenda-group "calculate"
+	salience -10
+	lock-on-active
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : AutoBusBaseTariffDef( )
+		$p : Premium( year == 2010 )
+		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
+		eval ( getYear( $q.getStartDate() ) == $p.getYear() )
+		eval ( $b.isValid( $q.getStartDate() ) )
+
+	then
+		$p.setDailyPremium($b.getValue());
+end
+
+rule "2010 utáni napidij beallitas (autobusz)"
+	agenda-group "calculate"
+	salience -10
+	lock-on-active
+	when
+		$c1: Constant( name == "TC_AUTOBUSZ")
+		$q : Query()
+		$v : Vehicle( typeCode == $c1.value )
+		$b : AutoBusBaseTariffDef( )
+		$p : Premium( year != 2010 )
+		eval ( isBetween($b.getSeatingCapacityMin(), $b.getSeatingCapacityMax(), $v.getSeatingCapacity() ) )
+		eval ( getYear( $q.getEndDate() ) >= $p.getYear() )
+		eval ( $b.isValid( new DateTime($p.getYear(), 1, 1, 0, 0, 0, 0).toDate() ) )
+
+	then
+		$p.setDailyPremium($b.getValue());
+end
+
+rule "2010-es napidij beallitas (egyeb jarmu)"
+	agenda-group "calculate"
+	salience -10
+	lock-on-active
+	when
+		$q : Query()
+		$v : Vehicle()
+		$b : BaseTariffDef( vehicleType == $v.typeCode )
+		$p : Premium( year == 2010 )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )
+		eval ( getYear( $q.getStartDate() ) == $p.getYear() )
+		eval ( $b.isValid( $q.getStartDate() ) )
+
+	then
+		$p.setDailyPremium($b.getValue());
+        $v.setCubicCapacity(null); //Ne adja őket vissza a válaszban, még ha jött is befelé adat!
+        $v.setSeatingCapacity(null);
+		$v.setCarryingCapacity(null);
+end
+
+rule "2011-es napidij beallitas (egyeb jarmu)"
+	agenda-group "calculate"
+	salience -10
+	lock-on-active
+	when
+		$q : Query()
+		$v : Vehicle()
+		$b : BaseTariffDef( vehicleType == $v.typeCode )
+		$p : Premium( year != 2010 )
+		$vt: VehicleTypeDef( typeCode == $v.typeCode )
+		eval ( getYear( $q.getEndDate() ) >= $p.getYear() )
+		eval ( $b.isValid( new DateTime($p.getYear(), 1, 1, 0, 0, 0, 0).toDate() ) )
+
+	then
+		$p.setDailyPremium($b.getValue());
+        $v.setCubicCapacity(null); //Ne adja őket vissza a válaszban, még ha jött is befelé adat!
+        $v.setSeatingCapacity(null);
+		$v.setCarryingCapacity(null);
+end
+
+//-***********************************************
+// napok számának beállítása
+
 rule "premium napok számolása (intervallum eleje)"
     agenda-group "calculate"
 	salience -30
