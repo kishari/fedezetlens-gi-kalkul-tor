@@ -36,11 +36,19 @@
 		<delete dir="${web.web-inf.classes}" />
 	</target>
 
-	<target name="init">
+	<target name="init" depends="copy_libs">
 		<tstamp />
 		<mkdir dir="${web.web-inf.classes}" />
 		<mkdir dir="${target}" />
 		<mkdir dir="${target.dist}" />
+	</target>
+
+    <target name="copy_libs">
+			<copy todir="${web.web-inf.lib}">
+		    <fileset dir="${lib}">
+                <exclude name="javaee-api-6.0.jar"/>
+		    </fileset>
+		  </copy>
 	</target>
 
 	<target name="compile" depends="init" description="compile the source ">
@@ -68,6 +76,8 @@
 		<jar destfile="${mabisz.warfile}" duplicate="preserve">
 			<fileset dir="${web}" />
 		</jar>
+
+        <delete dir="${web.web-inf.lib}" />
 	</target>		
 	<target name="deploy" depends="war">
 			<copy file="${log4j.propfile}" todir="${services.domain.lib.classes}" />
